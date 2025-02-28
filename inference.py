@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from PIL import Image
 import time
 
+# v1 is better than v2
+
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
@@ -15,7 +17,7 @@ EPOCHS = 50
 MAX_EGGS = 9 
 
 # def model 
-model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNNClassifier/fecundity_model_v1.h5')
+model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_v1.h5')
 
 # predict egg count in a new image
 def predict_egg_count(image_path):
@@ -35,25 +37,25 @@ predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-
 print(f'Predicted number of eggs: {predicted_eggs}')
 img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt1.jpg")
 img.show()
-time.sleep(20)
+time.sleep(1)
 
 # 1
 predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
 print(f'Predicted number of eggs: {predicted_eggs}')
 img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
 img.show()
-time.sleep(30)
+time.sleep(1)
 
 # i have no idea its 2 or 3?
 predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
 print(f'Predicted number of eggs: {predicted_eggs}')
 img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
 img.show()
-time.sleep(60)
+time.sleep(1)
 
 # 2
 predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
 print(f'Predicted number of eggs: {predicted_eggs}')
 img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
 img.show()
-time.sleep(30)
+time.sleep(1)
