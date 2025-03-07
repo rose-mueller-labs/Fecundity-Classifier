@@ -8,12 +8,15 @@ a flatten layer to convert 2D  feature maps to 1D, and two dense layers, the las
 
 After training and testing, with the data, we got an accuracy of 88% and an overall mean square error (MSE) of 0.16824.
 
-With the 04-29 caps, we did inference of the model. Here is the model predicting counts of images it has never seen before live:
+With the 04-29 caps, we did inference of the model. Here is the model predicting counts of images it has never seen before live, note the Predicted Number of Eggs statement at the bottom, that is the model figuring out the number of eggs in the image:
 
 [inference_demo.webm](https://github.com/user-attachments/assets/7c83e4a6-f190-43d4-9f43-6266448c70b7)
+
+The model was accurate was nearly all the eggs except for the third one, where the correct answer is 3. 
 
 Here, we graph the overall MSE with the MSE of each counted egg class:
 
 ![mse_fig](https://github.com/user-attachments/assets/856fe14a-80e0-49cc-a12e-26c730726052)
 
 The model performs decently well across the classes!
+With the classified data from the site, we were able to get out the first iteration of the Fecundity model.
