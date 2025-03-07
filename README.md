@@ -10,6 +10,8 @@ After training and testing, with the data, we got an accuracy of 88% and an over
 
 With the 04-29 caps, we did inference of the model. Here is the model predicting counts of images it has never seen before live:
 
+[inference_demo.webm](https://github.com/user-attachments/assets/7c83e4a6-f190-43d4-9f43-6266448c70b7)
+
 Here, we graph the overall MSE with the MSE of each counted egg class:
 
 ![mse_fig](https://github.com/user-attachments/assets/856fe14a-80e0-49cc-a12e-26c730726052)
