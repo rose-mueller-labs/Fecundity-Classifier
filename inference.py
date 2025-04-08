@@ -33,28 +33,34 @@ def predict_egg_count(image_path):
 
 # usage
 # 0
-predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt1.jpg")
+predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/04-30-cap-800x800-sliced-Alexander/eggs4countnCO1 Control 04-30 11 pt44.jpg")
 print(f'Predicted number of eggs: {predicted_eggs}')
-img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt1.jpg")
+img = Image.open("/home/drosophila-lab/Documents/04-30-cap-800x800-sliced-Alexander/eggs4countnCO1 Control 04-30 11 pt44.jpg")
 img.show()
 time.sleep(3)
+# # 0
+# predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt1.jpg")
+# print(f'Predicted number of eggs: {predicted_eggs}')
+# img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt1.jpg")
+# img.show()
+# time.sleep(3)
 
-# 1
-predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
-print(f'Predicted number of eggs: {predicted_eggs}')
-img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
-img.show()
-time.sleep(3)
+# # 1
+# predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
+# print(f'Predicted number of eggs: {predicted_eggs}')
+# img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/ACO1 Control 04-29 1 pt78.jpg")
+# img.show()
+# time.sleep(3)
 
-# 2
-predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
-print(f'Predicted number of eggs: {predicted_eggs}')
-img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
-img.show()
-time.sleep(3)
+# # 2
+# predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
+# print(f'Predicted number of eggs: {predicted_eggs}')
+# img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 50 pt82.jpg")
+# img.show()
+# time.sleep(3)
 
-# 2
-predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
-print(f'Predicted number of eggs: {predicted_eggs}')
-img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
-img.show()
+# # 2
+# predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
+# print(f'Predicted number of eggs: {predicted_eggs}')
+# img = Image.open("/home/drosophila-lab/Documents/Fecundity/04-29-cap-800x800-sliced/nCO1 Lithium 04-29 49 pt28.jpg")
+# img.show()
