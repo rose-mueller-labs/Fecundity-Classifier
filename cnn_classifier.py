@@ -4,13 +4,19 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
+import csv
+
+## TO DO
+# - remove data augmentation
+# - add k stratified
+##
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = 9 
+MAX_EGGS = 42 
 
 # load and preprocess ** might need to fix this st all classes are balanced, lots of 0s atm
 def load_data(data_dir): # dir has subdirs of classes
@@ -28,7 +34,7 @@ def load_data(data_dir): # dir has subdirs of classes
     return np.array(images), np.array(labels)
 
 # load 
-data_dir = '/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/MarvinAlexDataClasses'
 X, y = load_data(data_dir)
 
 # normalize 
@@ -78,4 +84,4 @@ with open ('eval.txt', 'w') as file:
     file.write(f'test loss: {test_loss}\n')
 
 # save
-model.save('fecundity_model_v3.h5')
+model.save('fecundity_model_mo_data_v2.h5')

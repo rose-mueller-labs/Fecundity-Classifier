@@ -14,10 +14,10 @@ IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = 9 
+MAX_EGGS = 42
 
 # def model 
-model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_v1.h5')
+model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/fecundity_model_mo_data_v2.h5')
 
 # predict egg count in a new image
 def predict_egg_count(image_path):
@@ -33,9 +33,9 @@ def predict_egg_count(image_path):
 
 # usage
 # 0
-predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/04-30-cap-800x800-sliced-Alexander/eggs4countnCO1 Control 04-30 11 pt44.jpg")
+predicted_eggs = predict_egg_count("/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses/42/eggs42countNCO1 Control 5-1 5 pt15.jpg")
 print(f'Predicted number of eggs: {predicted_eggs}')
-img = Image.open("/home/drosophila-lab/Documents/04-30-cap-800x800-sliced-Alexander/eggs4countnCO1 Control 04-30 11 pt44.jpg")
+img = Image.open("/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses/42/eggs42countNCO1 Control 5-1 5 pt15.jpg")
 img.show()
 time.sleep(3)
 # # 0
