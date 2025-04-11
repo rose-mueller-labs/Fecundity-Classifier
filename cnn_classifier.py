@@ -84,4 +84,4 @@ with open ('eval.txt', 'w') as file:
     file.write(f'test loss: {test_loss}\n')
 
 # save
-model.save('fecundity_model_mo_data_v2.h5')
+model.save('fecundity_model_mo_data_v3.h5')

@@ -1,4 +1,4 @@
-DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/5-1-cap-800x800-sliced"
+DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/Winter 2017 2 21 C pops cap-sliced"
 DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/MarvinAlexDataClasses"
 
 import os
@@ -6,7 +6,7 @@ import shutil
 
 for file in os.listdir(DATA_PATH):
     print(file)
-    if 'eggs' not in file:
+    if 'eggs' not in file or 'unsure' in file:
         continue
     egg_count = file.split('eggs')[1].split('count')[0]
     try:

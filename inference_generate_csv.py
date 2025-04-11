@@ -18,7 +18,7 @@ EPOCHS = 50
 MAX_EGGS = 42
 
 # def model 
-model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_mo_data_v2.h5')
+model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_mo_data_v3.h5')
 
 # predict egg count in a new image
 def predict_egg_count(image_path):
@@ -32,7 +32,7 @@ def predict_egg_count(image_path):
    
     return egg_count
 
-ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/Winter 2017 2 21 C pops cap-sliced"
+ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/5-1-cap-800x800-sliced-Marvin"
 with open("testing_on_winter.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
