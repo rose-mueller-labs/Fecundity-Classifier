@@ -7,7 +7,7 @@ import csv
 from scipy.optimize import curve_fit
 
 # ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses"
-df = pd.read_csv('testing_on_winter.csv')
+df = pd.read_csv('testing_on_marvin.csv')
 CLASS_MSES = dict({'0': 0.031185, '1': 0.483871, '2': 1.223881, 
                    '3': 2.750000, '4': 2.590909, '5': 4.250000, '6': 10.750000, 
                    '7': 11.666667, '8': 1.000000, '9': 64.000000, 

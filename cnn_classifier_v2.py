@@ -32,7 +32,7 @@ def load_data(data_dir): # dir has subdirs of classes
     return np.array(images), np.array(labels)
 
 # load 
-data_dir = '/home/drosophila-lab/Documents/Fecundity/MarvinAlexDataClasses'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingClasses'
 X, y = load_data(data_dir)
 
 # normalize 
@@ -75,3 +75,5 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
 
 # Final evaluation on test set
 test_loss, test_acc = model.evaluate(X_test, y_test)
+
+model.save('fecundity_model_mo_data_v3.h5')

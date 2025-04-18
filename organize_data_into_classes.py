@@ -1,5 +1,5 @@
-DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/Winter 2017 2 21 C pops cap-sliced"
-DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/MarvinAlexDataClasses"
+DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Winter 2017 2 21 C pops cap-sliced"
+DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingClasses"
 
 import os
 import shutil

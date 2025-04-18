@@ -33,7 +33,7 @@ def predict_egg_count(image_path):
     return egg_count
 
 ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/5-1-cap-800x800-sliced-Marvin"
-with open("testing_on_winter.csv", "w", newline='') as file:
+with open("testing_on_marvin.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
     for file in os.listdir(ROOT_DIR):
