@@ -32,12 +32,12 @@ def predict_egg_count(image_path):
    
     return egg_count
 
-ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/5-1-cap-800x800-sliced-Marvin"
+ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/5-1-cap-800x800-sliced-Marvin"
 with open("testing_on_marvin.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
     for file in os.listdir(ROOT_DIR):
-        if 'eggs' not in file:
+        if 'eggs' not in file or 'unsure' in file or 'eggs0' in file:
             continue
         label = file.split('eggs')[1].split('count')[0]
         predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{file}")

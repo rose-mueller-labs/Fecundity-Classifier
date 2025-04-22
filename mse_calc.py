@@ -8,10 +8,18 @@ from scipy.optimize import curve_fit
 
 # ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses"
 df = pd.read_csv('testing_on_marvin.csv')
-CLASS_MSES = dict({'0': 0.031185, '1': 0.483871, '2': 1.223881, 
-                   '3': 2.750000, '4': 2.590909, '5': 4.250000, '6': 10.750000, 
-                   '7': 11.666667, '8': 1.000000, '9': 64.000000, 
-                   '12': 25.000000})
+CLASS_MSES = dict({'1': 0.594294, '2': 1.542363, 
+                   '3': 1.924145, '4': 2.940270, '5': 2.818841, '6': 4.118519, 
+                   '7': 5.721519, '8': 14.361111, '9': 8.227273, '10': 15.684211,
+                   '11' :     8.333333,
+'12'  :   11.000000,
+'13' :    41.600000,
+'14' :     2.500000,
+'15' :    58.500000,
+'16' :   121.000000,
+'17':      2.000000,
+'18' :      4.000000,
+'21' :     4.500000})
 
 def get_class_counts():
     counts = dict()
@@ -43,7 +51,7 @@ mse_by_counts.plot(kind='bar')
 plt.title('Error in Egg Counts per Class')
 plt.xlabel('Class/Correct Egg Count')
 plt.ylabel('Error in Prediction (Mean Squared Error)')
-plt.ylim(0, 12)
+plt.ylim(0, 125)
 plt.xticks(rotation=0)
 plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
 plt.legend()
