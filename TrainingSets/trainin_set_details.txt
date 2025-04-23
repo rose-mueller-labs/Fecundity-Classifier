@@ -1,0 +1,38 @@
+**TrainingClasses**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        5-1-Marvin
+        5-1-Josie
+        5-2-Alex
+        5-2-Mary
+        5-4-Julie
+    Model
+    Metrics
+    Testing
+
+**SilkyJohnson2**
+    Contains
+        04-30-cap-Alex
+        5-1-Alex
+        5-2-Alex
+        5-4-Julie
+    Model
+        fecundity_model_aug_str_v1.keras
+    Metrics
+
+    Testing
+        Test1-5
+
+**SilkyJohnson**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        5-2-Alex
+    Model
+        fecundity_model_mo_data_v4.h5
+    Metrics
+        MSEFigures/mo4_res.txt
+        MSEFigures/graph_mov4.png
+    Testing
+        Winter2017 CD
