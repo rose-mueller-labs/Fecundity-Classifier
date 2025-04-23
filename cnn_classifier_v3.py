@@ -54,7 +54,7 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
     y_train_fold, y_val_fold = y_train[train_idx], y_train[val_idx]
 
     model = models.Sequential([
-        data_augmentation,  # <<< ADDED
+        data_augmentation,
         layers.Conv2D(32, (3,3), activation='relu',
                      input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
         layers.MaxPooling2D((2,2)),
