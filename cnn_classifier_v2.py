@@ -3,10 +3,9 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split, StratifiedKFold
+from PIL import Image
 
 ## TO DO
-# - remove data augmentation
-# - add k stratified
 ##
 
 # constants
@@ -32,7 +31,7 @@ def load_data(data_dir): # dir has subdirs of classes
     return np.array(images), np.array(labels)
 
 # load 
-data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingClasses'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/SilkyJohnson'
 X, y = load_data(data_dir)
 
 # normalize 
@@ -76,4 +75,4 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
 # Final evaluation on test set
 test_loss, test_acc = model.evaluate(X_test, y_test)
 
-model.save('fecundity_model_mo_data_v3.h5')
+model.save('fecundity_model_mo_data_v4.h5')

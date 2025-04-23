@@ -51,13 +51,13 @@ mse_by_counts.plot(kind='bar')
 plt.title('Error in Egg Counts per Class')
 plt.xlabel('Class/Correct Egg Count')
 plt.ylabel('Error in Prediction (Mean Squared Error)')
-plt.ylim(0, 125)
+plt.ylim(0, 20)
 plt.xticks(rotation=0)
 plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
 plt.legend()
 plt.tight_layout()
 plt.plot()
-plt.savefig("graph")
+plt.savefig("graph2")
 
 
 ## graphing mse & img count per class
