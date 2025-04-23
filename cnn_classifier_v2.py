@@ -75,4 +75,4 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
 # Final evaluation on test set
 test_loss, test_acc = model.evaluate(X_test, y_test)
 
-model.save('fecundity_model_mo_data_v4.h5')
+model.save('fecundity_model_mo_data_v4.keras')

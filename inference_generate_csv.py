@@ -20,6 +20,7 @@ MAX_EGGS = 42
 # def model 
 model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_mo_data_v3.h5')
 
+
 # predict egg count in a new image
 def predict_egg_count(image_path):
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=(IMG_HEIGHT, IMG_WIDTH))
@@ -32,12 +33,12 @@ def predict_egg_count(image_path):
    
     return egg_count
 
-ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/5-1-cap-800x800-sliced-Marvin"
-with open("testing_on_marvin_unsure.csv", "w", newline='') as file:
+ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Winter 2017 2 21 C pops cap-sliced"
+with open("testing_on_winter_mo_v2.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
     for file in os.listdir(ROOT_DIR):
-        if 'eggs' not in file or 'unsure' not in file:
+        if 'eggs' not in file or 'unsure' in file:
             continue
         label = file.split('eggs')[1].split('count')[0]
         predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{file}")
