@@ -1,0 +1,19 @@
+TOTAL MSE: 0.17940480216435575
+TOTAL RMSE: 0.4235620405139674
+/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Test1/test1.py:76: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  mse_by_counts = df.groupby('Human').apply(lambda x: np.mean((x['Human']-x['Bot'])**2))
+MSE FOR EACH COUNT: 
+Human
+0      0.012399
+1      0.486559
+2      1.402985
+3      3.770833
+4      3.863636
+5     18.750000
+6     17.500000
+7     23.333333
+8     16.000000
+9     49.000000
+12    64.000000
+dtype: float64
+img counts {0: 5323, 1: 372, 2: 134, 3: 48, 6: 4, 4: 22, 8: 2, 5: 4, 7: 3, 12: 1, 9: 1}
