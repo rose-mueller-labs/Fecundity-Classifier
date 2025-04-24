@@ -20,9 +20,10 @@
     Model
         fecundity_model_aug_str_v1.keras
     Metrics
-
+        Test1/SJ2_lithium_training_vs_CD_testing_MSEs.txt
+        Test1/SJ2_lithium_training_vs_lithium_testing_five_fold_MSEs.txt
     Testing
-        Test1-5
+        Test1
 
 **SilkyJohnson**
     Contains
