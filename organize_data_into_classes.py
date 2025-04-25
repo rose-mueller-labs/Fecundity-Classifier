@@ -1,5 +1,5 @@
 DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/UsableData"
-DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/TrainingClasses"
+DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/NoZeros"
 
 import os
 import shutil
@@ -7,9 +7,11 @@ import shutil
 def orgdat(datapath):
     for file in os.listdir(datapath):
         print(file)
-        if 'eggs' not in file or 'unsure' in file:
+        if 'eggs' not in file or 'unsure' in file or 'eggs0' in file:
             continue
         egg_count = file.split('eggs')[1].split('count')[0]
+        if egg_count == 0:
+            continue
         try:
             if int(egg_count) > 10:
                 print(egg_count)
@@ -24,3 +26,5 @@ def orgdat(datapath):
 
 for folder in os.listdir(DATA_PATH):
     orgdat(f'{DATA_PATH}/{folder}')
+
+# orgdat("/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/UsableData/Winter 2017 2 21 C pops cap-sliced")

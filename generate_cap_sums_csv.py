@@ -15,7 +15,7 @@ EPOCHS = 50
 MAX_EGGS = 9 
 
 # def model 
-model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_v1.h5')
+model = tf.keras.models.load_model('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_aug_str_v1.keras')
 
 # predict egg count in a new image
 def predict_egg_count(image_path):
@@ -72,5 +72,5 @@ def get_actual_total(csv_path, actual_csv_name):
 
 
 if __name__ == '__main__':
-    # create_csv_data_file('alex2.csv', "/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses")
-    get_actual_total('alex2.csv', 'alex2_sums.csv')
+    create_csv_data_file('winter_indivs.csv', "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/Winter")
+    get_actual_total('winter_indivs.csv', 'winter_indivs_sums.csv')

@@ -1,3 +1,26 @@
+**NoZeros**
+    Contains (without 0 eggs)
+        04-30-Alex
+        5-1-Alex
+        5-2-Alex
+        5-4-Julie
+    Model
+        fecundity_model_no_zeros.keras
+    Metrics
+    Testing
+        MSE per class
+
+**Alex**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        5-2-Alex
+    Model
+        fecundity_model_aug_str_alex_v1.keras
+    Metrics
+    Testing
+        Test2
+
 **TrainingClasses**
     Contains
         04-30-Alex
