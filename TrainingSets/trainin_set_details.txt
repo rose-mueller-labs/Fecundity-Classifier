@@ -1,3 +1,15 @@
+**SilkyJohnson2Training**
+    Contains (80% of)
+        04-30-Alex
+        5-1-Alex
+        5-2-Alex
+        5-4-Julie
+    Model
+        fecundity_model_aug_str_v2.keras
+    Metrics
+    Testing
+        Remaining 20% of
+
 **ZeroOrNot**
     Contains (0 or 1 mean 0 eggs or non-0 eggs)
         04-30-Alex
@@ -7,6 +19,9 @@
     Model
         fecundity_model_zero_or_not.keras
     Metrics
+        TestNoZeros/all_and_zon_mses.txt
+        TestNoZeros/dual_model_mses.txt
+        TestNoZeros/zero_or_not_mses.txt
     Testing
         Winter2017 CD
 
@@ -19,7 +34,8 @@
     Model
         fecundity_model_no_zeros.keras
     Metrics
-        TestNoZeros/mses.txt
+        TestNoZeros/dual_model_mses.txt
+        TestNoZeros/no_zeros_mses.txt
     Testing
         Winter2017 CD
 

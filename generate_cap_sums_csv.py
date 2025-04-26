@@ -72,5 +72,5 @@ def get_actual_total(csv_path, actual_csv_name):
 
 
 if __name__ == '__main__':
-    create_csv_data_file('winter_indivs.csv', "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/Winter")
-    get_actual_total('winter_indivs.csv', 'winter_indivs_sums.csv')
+    create_csv_data_file('sj2_training_indivs.csv', "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson2Training")
+    # get_actual_total('sj2_training_indivs.csv', 'sj2_training_sums.csv')
