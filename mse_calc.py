@@ -7,7 +7,7 @@ import csv
 from scipy.optimize import curve_fit
 
 # ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses"
-df = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Test1/lithium_training_vs_lithium_testing_five_fold.csv')
+df = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestNoZeros/0_or_not_training_vs_CD_zon.csv')
 CLASS_MSES = dict({'1': 0.594294, '2': 1.542363, 
                    '3': 1.924145, '4': 2.940270, '5': 2.818841, '6': 4.118519, 
                    '7': 5.721519, '8': 14.361111, '9': 8.227273, '10': 15.684211,
@@ -51,13 +51,13 @@ mse_by_counts.plot(kind='bar')
 plt.title('Error in Egg Counts per Class')
 plt.xlabel('Class/Correct Egg Count')
 plt.ylabel('Error in Prediction (Mean Squared Error)')
-plt.ylim(0, 30)
+plt.ylim(0, 1)
 plt.xticks(rotation=0)
 plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
 plt.legend()
 plt.tight_layout()
 plt.plot()
-plt.savefig("SJ2_lithium_training_vs_lithium_testing_five_fold_small")
+plt.savefig("ZERO_OR_NOT_0_or_not_training_vs_CD_zon_small")
 
 
 ## graphing mse & img count per class

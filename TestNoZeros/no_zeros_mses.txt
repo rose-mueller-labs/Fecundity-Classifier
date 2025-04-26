@@ -1,0 +1,40 @@
+**NON ZERO CLASSES MSES**
+
+TOTAL MSE: 1.2098138747884941
+TOTAL RMSE: 1.0999153943774467
+/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestNoZeros/testing_no_zeros_on_no_zeros_mse.py:78: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  mse_by_counts = df.groupby('Human').apply(lambda x: np.mean((x['Human']-x['Bot'])**2))
+MSE FOR EACH COUNT: 
+Human
+1      0.247312
+2      0.820896
+3      3.333333
+4      4.500000
+5      7.500000
+6     12.750000
+7     21.666667
+8      4.000000
+9     64.000000
+12    36.000000
+dtype: float64
+img counts {1: 372, 2: 134, 3: 48, 6: 4, 4: 22, 8: 2, 5: 4, 7: 3, 12: 1, 9: 1}
+
+Bot
+1     0.860092
+2     1.245283
+3     2.000000
+4     2.823529
+5     2.500000
+6    10.714286
+9    36.000000
+
+**ZERO MSE**
+TOTAL MSE: 1.0672553071576178
+TOTAL RMSE: 1.0330804940359768
+/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/mse_calc.py:40: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  mse_by_counts = df.groupby('Human').apply(lambda x: np.mean((x['Human']-x['Bot'])**2))
+MSE FOR EACH COUNT: 
+Human
+0    1.067255
+dtype: float64
+img counts {0: 5323}

@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from PIL import Image
+from sklearn.metrics import r2_score
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
@@ -35,7 +36,7 @@ def load_data(data_dir): # dir has subdirs of classes
     return np.array(images), np.array(labels)
 
 # load
-data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/Alex'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson2'
 X, y = load_data(data_dir)
 
 # normalize
@@ -77,6 +78,24 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
         epochs=EPOCHS
     )
 
-test_loss, test_acc = model.evaluate(X_test, y_test)
+test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
+y_pred = model.predict(X_test)
+mse = ((y_test - y_pred) ** 2).mean()
+r2 = r2_score(y_test, y_pred)
 
-model.save('fecundity_model_aug_str_alex_v1.keras')
+with open('eval.txt', 'w') as file:
+    file.write(f'test accuracy: {test_acc}\n')
+    file.write(f'test loss: {test_loss}\n')
+    file.write(f'test MSE: {mse}\n')
+    file.write(f'test r2: {r2}\n\n\n\n')
+
+    file.write('---DISREGARD BELOW THIS---\n')
+    file.write('y_pred:\n')
+    file.write(y_pred)
+    file.write('\n\n')
+    file.write('y_test:\n')
+    file.write(y_test)
+    file.write('\n\n')
+
+
+model.save('fecundity_model_aug_str_v2.keras')
