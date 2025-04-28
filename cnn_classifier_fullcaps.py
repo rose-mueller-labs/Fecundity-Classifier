@@ -3,28 +3,28 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from sklearn.model_selection import train_test_split, StratifiedKFold
-from PIL import Image
-from sklearn.metrics import r2_score
 
-# constants
 IMG_HEIGHT, IMG_WIDTH = 800, 800
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = 42
+MAX_EGGS = 143
 
-# Data augmentation pipeline (added to see how it chngs may rm later)
-data_augmentation = tf.keras.Sequential([     
-    layers.RandomFlip("horizontal_and_vertical"),   
-    layers.RandomRotation(0.2),                    
-    layers.RandomZoom(0.1),                        
-])                                                 
+data_augmentation = tf.keras.Sequential([
+    layers.RandomFlip("horizontal_and_vertical"),
+    layers.RandomRotation(0.2),
+    layers.RandomZoom(0.1),
+])
 
-# load and preprocess
-def load_data(data_dir): # dir has subdirs of classes
+def load_data(data_dir):
     images = []
     labels = []
     for class_name in os.listdir(data_dir):
+        if not class_name.isdigit():
+            continue
+        class_idx = int(class_name)
+        if class_idx < 1 or class_idx > MAX_EGGS:
+            continue
         class_dir = os.path.join(data_dir, class_name)
         if os.path.isdir(class_dir):
             for img_name in os.listdir(class_dir):
@@ -32,22 +32,22 @@ def load_data(data_dir): # dir has subdirs of classes
                 img = tf.keras.preprocessing.image.load_img(img_path, target_size=(IMG_HEIGHT, IMG_WIDTH))
                 img_array = tf.keras.preprocessing.image.img_to_array(img)
                 images.append(img_array)
-                labels.append(int(class_name))
+                labels.append(class_idx - 1)
     return np.array(images), np.array(labels)
 
-# load
 data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/FullCapsClean'
 X, y = load_data(data_dir)
+print('Unique labels:', np.unique(y))
+print('Label min:', y.min(), 'Label max:', y.max())
+print('X shape:', X.shape)
+print('y shape:', y.shape)
 
-# normalize
 X = X.astype('float32') / 255.0
 
-# stratified train-test split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# stratified K-Fold Cross-Validation
 kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
@@ -56,15 +56,14 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
 
     model = models.Sequential([
         data_augmentation,
-        layers.Conv2D(32, (3,3), activation='relu',
-                     input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
+        layers.Conv2D(32, (3,3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
         layers.MaxPooling2D((2,2)),
         layers.Conv2D(64, (3,3), activation='relu'),
         layers.MaxPooling2D((2,2)),
         layers.Conv2D(64, (3,3), activation='relu'),
         layers.Flatten(),
         layers.Dense(64, activation='relu'),
-        layers.Dense(MAX_EGGS+1, activation='softmax')
+        layers.Dense(MAX_EGGS, activation='softmax')
     ])
    
     model.compile(optimizer='adam',
@@ -78,23 +77,20 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
         epochs=EPOCHS
     )
 
-model.save('fecundity_model_full_caps_v1.keras')
+model_name = 'fecundity_model_full_caps_v1.keras'
+model.save(model_name)
 
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
 y_pred = model.predict(X_test)
-# mse = ((y_test - y_pred) ** 2).mean()
-# r2 = r2_score(y_test, y_pred)
+y_pred_classes = np.argmax(y_pred, axis=1)
 
-with open('eval.txt', 'w') as file:
+with open(f'eval.txt_{model_name}', 'w') as file:
     file.write(f'test accuracy: {test_acc}\n')
     file.write(f'test loss: {test_loss}\n')
-    # file.write(f'test MSE: {mse}\n')
-    # file.write(f'test r2: {r2}\n\n\n\n')
-
     file.write('---DISREGARD BELOW THIS---\n')
     file.write('y_pred:\n')
-    file.write(y_pred)
+    file.write(np.array2string(y_pred_classes))
     file.write('\n\n')
     file.write('y_test:\n')
-    file.write(y_test)
+    file.write(np.array2string(y_test))
     file.write('\n\n')
