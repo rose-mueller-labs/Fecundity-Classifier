@@ -1,3 +1,31 @@
+**SilkyJohnson3**
+    Contains
+        04-30-cap-Alex
+        5-1-Alex
+        5-2-Alex
+        5-4-Julie
+        rep3-5-6-cap-cluster Alex
+    Model
+        fecundity_model_aug_str_v3.keras
+    Metrics
+    Testing
+        5-3-Jimmy
+        Winter2017
+
+**FullCapsSplitCounted**
+    Contains (background removed)
+        04-30-cap-Alex
+        5-1-Alex
+        5-2-Alex
+        5-4-Julie
+    Model
+        FullCapsSet/fecundity_model_clean_v1.keras
+    Metrics
+        FullCapsSet/clean_vs_CD.txt
+    Testing
+        Winter2017
+
+
 **SilkyJohnson2Training**
     Contains (80% of)
         04-30-Alex
@@ -7,8 +35,9 @@
     Model
         fecundity_model_aug_str_v2.keras
     Metrics
+        Tests1and3/SJ2Tr_metrics.txt
     Testing
-        Remaining 20% of
+        SilkyJohnson2Testing
 
 **ZeroOrNot**
     Contains (0 or 1 mean 0 eggs or non-0 eggs)
@@ -47,6 +76,7 @@
     Model
         fecundity_model_aug_str_alex_v1.keras
     Metrics
+        Test2/ALEX_metrics.txt
     Testing
         Test2
 

@@ -36,7 +36,7 @@ def load_data(data_dir): # dir has subdirs of classes
     return np.array(images), np.array(labels)
 
 # load
-data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/FullCapsSplitCounted'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson3'
 X, y = load_data(data_dir)
 
 # normalize
@@ -77,7 +77,7 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
         batch_size=BATCH_SIZE,
         epochs=EPOCHS
     )
-model_name = 'fecundity_model_clean_v1.keras'
+model_name = 'fecundity_model_aug_str_v3.keras'
 model.save(model_name)
 
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)

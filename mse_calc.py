@@ -1,25 +1,13 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import os
 import csv
 from scipy.optimize import curve_fit
 
 # ROOT_DIR = "/home/drosophila-lab/Documents/Fecundity/AlexanderDataClasses"
-df = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestNoZeros/0_or_not_training_vs_CD_zon.csv')
-CLASS_MSES = dict({'1': 0.594294, '2': 1.542363, 
-                   '3': 1.924145, '4': 2.940270, '5': 2.818841, '6': 4.118519, 
-                   '7': 5.721519, '8': 14.361111, '9': 8.227273, '10': 15.684211,
-                   '11' :     8.333333,
-'12'  :   11.000000,
-'13' :    41.600000,
-'14' :     2.500000,
-'15' :    58.500000,
-'16' :   121.000000,
-'17':      2.000000,
-'18' :      4.000000,
-'21' :     4.500000})
+df = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/FullCapsSet/clean_training_vs_CD_testing.csv')
 
 def get_class_counts():
     counts = dict()
@@ -33,16 +21,24 @@ def get_class_counts():
     return counts
 
 total_mse = mean_squared_error(df['Human'], df['Bot'])
-
-print(f'TOTAL MSE: {total_mse}')
-print(f'TOTAL RMSE: {np.sqrt(total_mse)}')
+total_r2 = r2_score(df['Human'], df['Bot'])
 
 mse_by_counts = df.groupby('Human').apply(lambda x: np.mean((x['Human']-x['Bot'])**2))
 
-print("MSE FOR EACH COUNT: ")
+r2_score_by_counts = df.groupby('Human').apply(lambda x: r2_score(x['Human'], x['Bot']))
+
+print(f'TOTAL MSE: {total_mse}\n')
+print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n')
+print(f'TOTAL R2SCORE: {total_r2}\n')
+print("MSE FOR EACH COUNT: \n")
 print(mse_by_counts)
+print('\n')
+print("R2 SCORE FOR EACH COUNT: \n")
+print(r2_score_by_counts)
+print('\n')
 img_counts = get_class_counts()
 print("img counts", img_counts)
+print('\n')
 
 ## graphing mse & class
 
@@ -51,13 +47,13 @@ mse_by_counts.plot(kind='bar')
 plt.title('Error in Egg Counts per Class')
 plt.xlabel('Class/Correct Egg Count')
 plt.ylabel('Error in Prediction (Mean Squared Error)')
-plt.ylim(0, 1)
+plt.ylim(0, 100)
 plt.xticks(rotation=0)
 plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
 plt.legend()
 plt.tight_layout()
 plt.plot()
-plt.savefig("ZERO_OR_NOT_0_or_not_training_vs_CD_zon_small")
+plt.savefig("clean_training_cd_testing_eval")
 
 
 ## graphing mse & img count per class

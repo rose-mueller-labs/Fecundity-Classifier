@@ -1,8 +1,8 @@
 '''Testing between two different datasets Lithium Experiment vs CD Experiment'''
 
-MODEL = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_aug_str_v1.keras"
+MODEL = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_aug_str_alex_v1.keras"
 
-ONE_DATASET_CD = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/DATA/Winter 2017 2 21 C pops cap-sliced"
+ONE_DATASET_CD = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestingSets/Test2"
 
 import os
 import numpy as np
@@ -37,25 +37,29 @@ def predict_egg_count(image_path):
     return egg_count
 
 ROOT_DIR = ONE_DATASET_CD
-with open("lithium_training_vs_CD_testing.csv", "w", newline='') as file:
+zeros = 0
+with open("alex_vs_others_testing.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
-    for file in os.listdir(ROOT_DIR):
-        if 'eggs' not in file or 'unsure' in file:
-            continue
-        label = file.split('eggs')[1].split('count')[0]
-        predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{file}")
-        writer.writerow([file, predicted_eggs, label])
+    for label in os.listdir(ROOT_DIR):
+        for file in os.listdir(f'{ROOT_DIR}/{label}'):
+            if 'eggs' not in file or 'unsure' in file or zeros>=5323:
+                continue
+            if 'eggs0' in file:
+                zeros+=1
+            predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{label}/{file}")
+            print()
+            writer.writerow([file, predicted_eggs, label])
 
 import pandas as pd
 import numpy as np
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import os
 import csv
 from scipy.optimize import curve_fit
 
-df = pd.read_csv('lithium_training_vs_CD_testing.csv')
+df = pd.read_csv('alex_vs_others_testing.csv')
 
 def get_class_counts():
     counts = dict()
@@ -69,16 +73,24 @@ def get_class_counts():
     return counts
 
 total_mse = mean_squared_error(df['Human'], df['Bot'])
-
-print(f'TOTAL MSE: {total_mse}')
-print(f'TOTAL RMSE: {np.sqrt(total_mse)}')
+total_r2 = r2_score(df['Human'], df['Bot'])
 
 mse_by_counts = df.groupby('Human').apply(lambda x: np.mean((x['Human']-x['Bot'])**2))
 
-print("MSE FOR EACH COUNT: ")
+r2_score_by_counts = df.groupby('Human').apply(lambda x: r2_score(x['Human'], x['Bot']))
+
+print(f'TOTAL MSE: {total_mse}\n')
+print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n')
+print(f'TOTAL R2SCORE: {total_r2}\n')
+print("MSE FOR EACH COUNT: \n")
 print(mse_by_counts)
+print('\n')
+print("R2 SCORE FOR EACH COUNT: \n")
+print(r2_score_by_counts)
+print('\n')
 img_counts = get_class_counts()
 print("img counts", img_counts)
+print('\n')
 
 ## graphing mse & class
 
@@ -93,4 +105,4 @@ plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)
 plt.legend()
 plt.tight_layout()
 plt.plot()
-plt.savefig("SJ2_lithium_training_vs_CD_testing")
+plt.savefig("ALEX_on_other_counters")
