@@ -13,6 +13,11 @@ from sklearn.model_selection import train_test_split
 from PIL import Image
 import time
 import csv
+import pandas as pd
+
+df_files = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/InferenceCSVFiles/5-1_marvin_alex_comparison_correct.csv')
+
+filesnams = list(df_files['AlexFileName'])
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
@@ -41,7 +46,7 @@ with open("lith51.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
     for file in os.listdir(ROOT_DIR):
-        if 'eggs' not in file or 'unsure' in file:
+        if 'eggs' not in file or 'unsure' in file or file not in filesnams:
             continue
         label = file.split('eggs')[1].split('count')[0]
         predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{file}")
