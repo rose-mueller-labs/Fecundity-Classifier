@@ -2,8 +2,8 @@ import os
 import csv
 import pandas as pd
 
-MARVIN = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/5-1-cap-800x800-sliced-Marvin"
-ALEX = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/5-1-cap-800x800-sliced-Alexander"
+MARVIN = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/UsableData/5-1-cap-800x800-sliced-Marvin"
+ALEX = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/UsableData/5-1-cap-800x800-sliced-Marvin"
 
 def get_raw(file):
     raw_file_name = file.split('eggs')[1]
@@ -24,7 +24,7 @@ def get_alex_file(file, all_files):
 count_same = 0
 total = 0
 count_diff = 0
-with open('5-1_marvin_alex_comparison_correct.csv', "w", newline='') as cmp_file:
+with open('5-1_marvin_alex_comparison_clusters.csv', "w", newline='') as cmp_file:
     writer = csv.writer(cmp_file)
     writer.writerow(['FileName', 'MarvinFileName', 'AlexFileName', 'AlexCount', 'MarvinCount', 'Mean', 'Difference'])
     for file in os.listdir(MARVIN):

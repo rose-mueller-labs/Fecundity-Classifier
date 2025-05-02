@@ -69,7 +69,7 @@ while len(current_X_train) > 0:
    
     model.compile(optimizer='adam',
                 loss='sparse_categorical_crossentropy',
-                metrics=['accuracy'])
+                metrics=['mse'])
    
     # Train with silent output
     model.fit(current_X_train, current_y_train,
@@ -78,7 +78,7 @@ while len(current_X_train) > 0:
             verbose=0)
    
     # Evaluate and store results
-    test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
+    test_loss, test_acc = model.evaluate(X_test, y_test)
     results.append((len(current_X_train), test_loss, test_acc))
    
     # Reduce dataset size
