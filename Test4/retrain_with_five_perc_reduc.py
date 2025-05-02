@@ -47,13 +47,13 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# stratified K-Fold Cross-Validation
-kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+# After stratified train-test split
+results = []
+current_X_train = X_train.copy()
+current_y_train = y_train.copy()
 
-for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
-    X_train_fold, X_val_fold = X_train[train_idx], X_train[val_idx]
-    y_train_fold, y_val_fold = y_train[train_idx], y_train[val_idx]
-
+while len(current_X_train) > 0:
+    # Build and compile fresh model each iteration
     model = models.Sequential([
         data_augmentation,
         layers.Conv2D(32, (3,3), activation='relu',
@@ -71,30 +71,23 @@ for fold, (train_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
                 loss='sparse_categorical_crossentropy',
                 metrics=['accuracy'])
    
-    model.fit(
-        X_train_fold, y_train_fold,
-        validation_data=(X_val_fold, y_val_fold),
-        batch_size=BATCH_SIZE,
-        epochs=EPOCHS
-    )
-model_name = f'fecundity_model_aug_str_v{i}.keras'
-model.save(model_name)
+    # Train with silent output
+    model.fit(current_X_train, current_y_train,
+            batch_size=BATCH_SIZE,
+            epochs=EPOCHS,
+            verbose=0)
+   
+    # Evaluate and store results
+    test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
+    results.append((len(current_X_train), test_loss, test_acc))
+   
+    # Reduce dataset size
+    reduce_size = int(len(current_X_train) * 0.05)
+    if reduce_size == 0: break
+    current_X_train = current_X_train[:-reduce_size]
+    current_y_train = current_y_train[:-reduce_size]
 
-test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
-y_pred = model.predict(X_test)
-# mse = ((y_test - y_pred) ** 2).mean()
-# r2 = r2_score(y_test, y_pred)
-
-with open(f'eval_{model_name}.txt', 'w') as file:
-    file.write(f'test accuracy: {test_acc}\n')
-    file.write(f'test loss: {test_loss}\n')
-    # file.write(f'test MSE: {mse}\n')
-    # file.write(f'test r2: {r2}\n\n\n\n')
-
-    file.write('---DISREGARD BELOW THIS---\n')
-    file.write('y_pred:\n')
-    # file.write(y_pred)
-    # file.write('\n\n')
-    # file.write('y_test:\n')
-    # file.write(y_test)
-    # file.write('\n\n')
+# Save results analysis
+with open('size_reduction_results.txt', 'w') as f:
+    for sample_count, loss, acc in results:
+        f.write(f"Samples: {sample_count}\tLoss: {loss:.4f}\tAccuracy: {acc:.4f}\n")
