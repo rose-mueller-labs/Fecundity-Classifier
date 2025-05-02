@@ -1,8 +1,8 @@
 '''Testing between two different datasets Lithium Experiment vs CD Experiment'''
 
-MODEL = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_aug_str_alex_v1.keras"
+MODEL = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_aug_str_v3.keras"
 
-ONE_DATASET_CD = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestingSets/Test2"
+ONE_DATASET_CD = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/DATA/Winter 2017 2 21 C pops cap-sliced"
 
 import os
 import numpy as np
@@ -37,19 +37,15 @@ def predict_egg_count(image_path):
     return egg_count
 
 ROOT_DIR = ONE_DATASET_CD
-zeros = 0
-with open("alex_vs_others_testing.csv", "w", newline='') as file:
+with open("SJ3_lithium_training_vs_CD_testing.csv", "w", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['ImagePath', 'Bot', 'Human'])
-    for label in os.listdir(ROOT_DIR):
-        for file in os.listdir(f'{ROOT_DIR}/{label}'):
-            if 'eggs' not in file or 'unsure' in file or zeros>=5323:
-                continue
-            if 'eggs0' in file:
-                zeros+=1
-            predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{label}/{file}")
-            print()
-            writer.writerow([file, predicted_eggs, label])
+    for file in os.listdir(ROOT_DIR):
+        if 'eggs' not in file or 'unsure' in file:
+            continue
+        label = file.split('eggs')[1].split('count')[0]
+        predicted_eggs = predict_egg_count(f"{ROOT_DIR}/{file}")
+        writer.writerow([file, predicted_eggs, label])
 
 import pandas as pd
 import numpy as np
@@ -59,7 +55,7 @@ import os
 import csv
 from scipy.optimize import curve_fit
 
-df = pd.read_csv('alex_vs_others_testing.csv')
+df = pd.read_csv('SJ3_lithium_training_vs_CD_testing.csv')
 
 def get_class_counts():
     counts = dict()
@@ -92,7 +88,7 @@ img_counts = get_class_counts()
 print("img counts", img_counts)
 print('\n')
 
-## graphing mse & class
+# graphing mse & class
 
 plt.figure(figsize=(10,6))
 mse_by_counts.plot(kind='bar')
@@ -105,4 +101,4 @@ plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)
 plt.legend()
 plt.tight_layout()
 plt.plot()
-plt.savefig("ALEX_on_other_counters")
+plt.savefig("SJ3_lithium_training_vs_CD_testing")
