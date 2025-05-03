@@ -55,33 +55,32 @@ plt.tight_layout()
 plt.plot()
 plt.savefig("unknownlithiumtest")
 
-CLASS_MSES = {
-0 :     0.038362,
-1  :    0.391850,
-2   :   0.922414,
-3    :  2.892308,
-4     : 3.071429,
-5      :5.722222,
-6   :   9.500000,
-7   :  11.666667,
-8   :   4.000000,
-9   :  14.333333,
-10  :  16.000000,
-}
+# CLASS_MSES = {
+# 0 :     0.038362,
+# 1  :    0.391850,
+# 2   :   0.922414,
+# 3    :  2.892308,
+# 4     : 3.071429,
+# 5      :5.722222,
+# 6   :   9.500000,
+# 7   :  11.666667,
+# 8   :   4.000000,
+# 9   :  14.333333,
+# 10  :  16.000000,
 
 ## graphing mse & img count per class
-img_counts = get_class_counts()
+# img_counts = get_class_counts()
 
-def get_key(k):
-    return list(CLASS_MSES.keys())[list(CLASS_MSES.values()).index(k)]
+# def get_key(k):
+#     return list(CLASS_MSES.keys())[list(CLASS_MSES.values()).index(k)]
 
-print("img counts", img_counts)
-# plt.scatter(list(CLASS_MSES.values()), list(img_counts.values()))
-plt.scatter(sorted(list(CLASS_MSES.values())), [img_counts[int(get_key(k))] for k in sorted(list(CLASS_MSES.values()))][4:])
-plt.yticks(np.arange(0, 10000, 1000)) # Add ticks every 0.5 units
-plt.title('MSE vs. Image Count')
-plt.xlabel('MSE')
-plt.ylabel('Image Count')
+# print("img counts", img_counts)
+# # plt.scatter(list(CLASS_MSES.values()), list(img_counts.values()))
+# plt.scatter(sorted(list(CLASS_MSES.values())), [img_counts[int(get_key(k))] for k in sorted(list(CLASS_MSES.values()))][4:])
+# plt.yticks(np.arange(0, 10000, 1000)) # Add ticks every 0.5 units
+# plt.title('MSE vs. Image Count')
+# plt.xlabel('MSE')
+# plt.ylabel('Image Count')
 
 # CLASS_MSES = 
 

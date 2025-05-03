@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models
 import tensorflow.keras.metrics
+import tensorflow.keras.losses
 from sklearn.model_selection import train_test_split
 from collections import Counter
 
@@ -48,7 +49,7 @@ def load_data(data_dir):
     return np.array(images), np.array(labels)
 
 # load data
-data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson2'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson4'
 X, y = load_data(data_dir)
 
 # normalize
@@ -81,17 +82,17 @@ while len(current_X_train) > 0:
 
     def sparse_mse(y_true, y_pred):
         y_true_onehot = tf.one_hot(tf.cast(y_true, tf.int32), depth=MAX_EGGS+1)
-        return tf.keras.metrics.MeanSquaredError(y_true_onehot, y_pred)
+        return tf.reduce_mean(tf.square(y_true_onehot - y_pred))
    
     model.compile(optimizer='adam',
                 loss='sparse_categorical_crossentropy',
-                metrics=[sparse_mse])  # MSE is correctly specified here
+                metrics=[sparse_mse])
    
     # Train with silent output
     model.fit(current_X_train, current_y_train,
             batch_size=BATCH_SIZE,
             epochs=EPOCHS,
-            verbose=0)
+            verbose=1)
    
     # Evaluate and store results (now with correct MSE naming)
     test_loss, test_sparse_mse = model.evaluate(X_test, y_test, verbose=0)

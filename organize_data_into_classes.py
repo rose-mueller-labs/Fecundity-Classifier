@@ -1,5 +1,5 @@
 DATA_PATH = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/UsableData"
-DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson3"
+DATA_PATH_DEST = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson4"
 
 import os
 import shutil

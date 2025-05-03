@@ -1,0 +1,5 @@
+#!/bin/bash
+python3 cnn_classifier_v3.py
+python3 cnn_classifier_v4.py
+python3 testing_all_models_on_winter_CD_full_caps.py
+python3 retrain_with_five_perc_reduc.py
