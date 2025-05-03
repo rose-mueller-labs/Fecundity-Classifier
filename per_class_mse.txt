@@ -1,0 +1,110 @@
+Overall Test MSE: 0.9176
+
+Class 0:
+  Average MSE: 0.9843 ± 0.0000
+  Individual Fold MSEs: ['0.9843', '0.9843', '0.9843', '0.9843', '0.9843']
+
+Class 1:
+  Average MSE: 0.4481 ± 0.0000
+  Individual Fold MSEs: ['0.4481', '0.4481', '0.4481', '0.4481', '0.4481']
+
+Class 2:
+  Average MSE: 1.6148 ± 0.0000
+  Individual Fold MSEs: ['1.6148', '1.6148', '1.6148', '1.6148', '1.6148']
+
+Class 3:
+  Average MSE: 4.8228 ± 0.0000
+  Individual Fold MSEs: ['4.8228', '4.8228', '4.8228', '4.8228', '4.8228']
+
+Class 4:
+  Average MSE: 9.7821 ± 0.0000
+  Individual Fold MSEs: ['9.7821', '9.7821', '9.7821', '9.7821', '9.7821']
+
+Class 5:
+  Average MSE: 16.8228 ± 0.0000
+  Individual Fold MSEs: ['16.8228', '16.8228', '16.8228', '16.8228', '16.8228']
+
+Class 6:
+  Average MSE: 25.1269 ± 0.0000
+  Individual Fold MSEs: ['25.1269', '25.1269', '25.1269', '25.1269', '25.1269']
+
+Class 7:
+  Average MSE: 35.7659 ± 0.0000
+  Individual Fold MSEs: ['35.7659', '35.7659', '35.7659', '35.7659', '35.7659']
+
+Class 8:
+  Average MSE: 44.8147 ± 0.0000
+  Individual Fold MSEs: ['44.8147', '44.8147', '44.8147', '44.8147', '44.8147']
+
+Class 9:
+  Average MSE: 64.0187 ± 0.0000
+  Individual Fold MSEs: ['64.0187', '64.0187', '64.0187', '64.0187', '64.0187']
+
+Class 10:
+  Average MSE: 82.9171 ± 0.0000
+  Individual Fold MSEs: ['82.9171', '82.9171', '82.9171', '82.9171', '82.9171']
+
+Class 11:
+  Average MSE: 100.6390 ± 0.0000
+  Individual Fold MSEs: ['100.6390', '100.6390', '100.6390', '100.6390', '100.6390']
+
+Class 12:
+  Average MSE: 121.1483 ± 0.0000
+  Individual Fold MSEs: ['121.1483', '121.1483', '121.1483', '121.1483', '121.1483']
+
+Class 13:
+  Average MSE: 140.2630 ± 0.0000
+  Individual Fold MSEs: ['140.2630', '140.2630', '140.2630', '140.2630', '140.2630']
+
+Class 14:
+  Average MSE: 175.3353 ± 0.0000
+  Individual Fold MSEs: ['175.3353', '175.3353', '175.3353', '175.3353', '175.3353']
+
+Class 15:
+  Average MSE: 202.6681 ± 0.0000
+  Individual Fold MSEs: ['202.6681', '202.6681', '202.6681', '202.6681', '202.6681']
+
+Class 16:
+  Average MSE: 232.3010 ± 0.0000
+  Individual Fold MSEs: ['232.3010', '232.3010', '232.3010', '232.3010', '232.3010']
+
+Class 17:
+  Average MSE: 263.7838 ± 0.0000
+  Individual Fold MSEs: ['263.7838', '263.7838', '263.7838', '263.7838', '263.7838']
+
+Class 18:
+  Average MSE: 297.2667 ± 0.0000
+  Individual Fold MSEs: ['297.2667', '297.2667', '297.2667', '297.2667', '297.2667']
+
+Class 19:
+  Average MSE: 332.7495 ± 0.0000
+  Individual Fold MSEs: ['332.7495', '332.7495', '332.7495', '332.7495', '332.7495']
+
+Class 20:
+  Average MSE: 370.2324 ± 0.0000
+  Individual Fold MSEs: ['370.2324', '370.2324', '370.2324', '370.2324', '370.2324']
+
+Class 21:
+  Average MSE: nan ± nan
+  Individual Fold MSEs: []
+
+Class 24:
+  Average MSE: 525.9346 ± 0.0000
+  Individual Fold MSEs: ['525.9346', '525.9346', '525.9346', '525.9346', '525.9346']
+
+Class 25:
+  Average MSE: nan ± nan
+  Individual Fold MSEs: []
+
+Class 26:
+  Average MSE: nan ± nan
+  Individual Fold MSEs: []
+
+Class 27:
+  Average MSE: nan ± nan
+  Individual Fold MSEs: []
+
+Class 42:
+  Average MSE: nan ± nan
+  Individual Fold MSEs: []
+

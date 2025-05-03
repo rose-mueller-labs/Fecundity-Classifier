@@ -119,3 +119,33 @@
         MSEFigures/graph_mov4.png
     Testing
         Winter2017 CD
+
+**MarvinAlexDataClasses**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        5-1-Marvin
+    Model
+        fecundity_model_mo_data_v3.h5
+    Metrics
+    Testing
+
+**???**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        5-2-Alex
+    Model
+        fecundity_model_mo_data_v1.h5
+    Metrics
+    Testing
+
+**???**
+    Contains
+        04-30-Alex
+        5-1-Alex
+        Winter2017 CD
+    Model
+        fecundity_model_v1.h5
+    Metrics
+    Testing
