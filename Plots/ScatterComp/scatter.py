@@ -9,12 +9,12 @@ sum_v_diff = dict()
 sum_v_diff_cnts = dict()
 
 for index,  row in df.iterrows():
-    if int(row['AverageSum']) not in sum_v_diff:
-        sum_v_diff[int(row['AverageSum'])] = row['BotDiff']
-        sum_v_diff_cnts[int(row['AverageSum'])] = 1
+    if int(row['SecondarySum']) not in sum_v_diff:
+        sum_v_diff[int(row['SecondarySum'])] = row['PrimaryDiff']
+        sum_v_diff_cnts[int(row['SecondarySum'])] = 1
     else:
-        sum_v_diff[int(row['AverageSum'])]+=row['BotDiff']
-        sum_v_diff_cnts[int(row['AverageSum'])] += 1
+        sum_v_diff[int(row['SecondarySum'])]+=row['PrimaryDiff']
+        sum_v_diff_cnts[int(row['SecondarySum'])] += 1
 
 for key, value in sum_v_diff.items():
     sum_v_diff[key] = value/sum_v_diff_cnts[key]
@@ -29,7 +29,7 @@ x_line = np.linspace(min(list(sum_v_diff.keys())), max(list(sum_v_diff.keys())),
 y_line = slope * x_line + cept
 print("slope: ", slope)
 plt.plot(x_line, y_line, color="red")
-plt.xlabel("Correct (Average) Sum")
-plt.ylabel("Bot Absolute Difference from Sum")
-plt.title("Average Sum v. Bot Absolute Difference")
-plt.savefig("Correct***")
+plt.xlabel("Secondary Sum")
+plt.ylabel("Human Absolute Difference from Primary Sum")
+plt.title("Secondary Sum v. Primary Human Absolute Difference")
+plt.savefig("HumanFCorrect***")
