@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.patches import Patch
 
 # Load your CSV file
-df = pd.read_csv('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv')
+df = pd.read_csv('/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv')
 
 # Create bins of size 5 for 'AverageSum'
 bin_edges = np.arange(df['AverageSum'].min(), df['AverageSum'].max() + 6, 5)
@@ -33,15 +33,15 @@ plt.boxplot(bot_counts_by_bin, positions=positions + 0.2, widths=0.3, patch_arti
 
 plt.xlabel('Correct Egg Count Bins')
 plt.ylabel('Egg Count')
-plt.title('Comparison of Human Counts and Bot Predictions by Correct Egg Count Bins')
+plt.title('Comparison of Human Counts and Model Predictions by Correct(Average) Egg Count Bins')
 plt.xticks(positions, bin_labels, rotation=45)
 
 legend_handles = [
     Patch(facecolor='deepskyblue', edgecolor='deepskyblue', label='Human Count'),
-    Patch(facecolor='lightcoral', edgecolor='lightcoral', label='Bot Prediction')
+    Patch(facecolor='lightcoral', edgecolor='lightcoral', label='Model Prediction')
 ]
 plt.legend(handles=legend_handles, loc='upper left')
 
 plt.tight_layout()
-plt.savefig("bw3_54")
+plt.savefig("bw3_54.png")
 plt.show()

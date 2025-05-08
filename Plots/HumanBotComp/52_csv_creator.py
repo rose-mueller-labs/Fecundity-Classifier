@@ -19,7 +19,7 @@ CHANNELS = 3
 BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
-MODEL = tf.keras.models.load_model("/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_mo_data_v1.h5")
+# MODEL = tf.keras.models.load_model("/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_mo_data_v1.h5")
 
 ## CSV creation
 
@@ -38,8 +38,8 @@ def predict_egg_count_default(image_path, name, model):
 
     return egg_count
 
-MARVIN = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/DATA/5-4-cap-sliced-Angela"
-ALEX = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/DATA/5-4-cap-sliced-Julie"
+MARVIN = "/Users/shreyanakum/Downloads/5-4-cap-sliced-Angela"
+ALEX = "/Users/shreyanakum/Downloads/5-4-cap-sliced-Julie"
 
 def get_raw(file):
     raw_file_name = file.split('eggs')[1]
@@ -137,9 +137,61 @@ def get_actual_total(csv_path, name):
             writer.writerow([root_img, prim_cnt, sec_cnt, bot_cnt, avg_cnt, abs(int(prim_cnt)-avg_cnt), abs(sec_cnt-avg_cnt), abs(bot_cnt-avg_cnt)])
     return actual_csv_name
 
+def MSEs_get_class_counts(cap_csvs):
+    df = pd.read_csv(cap_csvs)
+    counts = dict()
+    for index, row in df.iterrows():
+        label = int(row['AverageSum'])
+        if label not in counts:
+            counts[label]=1
+        else:
+            counts[label]+=1
+    
+    return counts
+
+def MSEs_metrics_and_graph(caps_csvs, name):
+    df = pd.read_csv(caps_csvs)
+
+    total_mse = mean_squared_error(df['AverageSum'], df['BotSum'])
+    total_r2 = r2_score(df['AverageSum'], df['BotSum'])
+
+    mse_by_counts = df.groupby('AverageSum').apply(lambda x: np.mean((x['AverageSum']-x['BotSum'])**2))
+
+    r2_score_by_counts = df.groupby('AverageSum').apply(lambda x: r2_score(x['AverageSum'], x['BotSum']))
+    with open(f"{name}_metrics.txt", "w") as file:
+        print(f'TOTAL MSE: {total_mse}\n', file=file)
+        print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n', file=file)
+        print(f'TOTAL R2SCORE: {total_r2}\n', file=file)
+        print("MSE FOR EACH COUNT: \n", file=file)
+        print(mse_by_counts.to_dict(), file=file)
+        print('\n', file=file)
+        # print("R2 SCORE FOR EACH COUNT: \n", file=file)
+        # print(r2_score_by_counts, file=file)
+        # print('\n', file=file)
+        img_counts = MSEs_get_class_counts(caps_csvs)
+        print(f"img counts {img_counts}", file=file)
+        print('\n', file=file)
+
+    ## graphing mse & class
+
+    plt.figure(figsize=(10,6))
+    mse_by_counts.plot(kind='bar')
+    plt.title('Error in Egg Counts per Class')
+    plt.xlabel('Class/Correct Egg Count')
+    plt.ylabel('Error in Prediction (Mean Squared Error)')
+    plt.ylim(0, 100)
+    plt.xticks(rotation=0)
+    plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
+    plt.legend()
+    plt.tight_layout()
+    plt.plot()
+    plt.savefig(f"{name}_full_cap_MSEs")
+
 if __name__ == '__main__':
     name = 'MoDataV1'
-    print(f'Getting tiles')
-    tiles_csv_name = get_tile_preds_data_file(name, MODEL)
-    print(f'Getting sums')
-    sums_csv_name = get_actual_total(tiles_csv_name, name)
+    # print(f'Getting tiles')
+    # tiles_csv_name = get_tile_preds_data_file(name, MODEL)
+    # print(f'Getting sums')
+    # sums_csv_name = get_actual_total(tiles_csv_name, name)
+    print(f'Getting metrics for {name}')
+    MSEs_metrics_and_graph("/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv", name)
