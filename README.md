@@ -1,25 +1,136 @@
-# The Fecundity CNN Classifier Model
+# **[title TBD] [#Params] V1 Caps**
 
-## Introduction
-Using the classified data from the Classifier Site, we were able to train the first version of the fecundity model! When you classified an image it was placed into 
-a class which represented the number of eggs in the image (0, 1, ..., 9). These images are used for the training, testing, and validation of our model.
+<style>
+img {
+ display: inline;
+}
+</style>
 
-## Model Specifications
-You can see our training code in ```cnn_classifier.py```. The model is a sequential CNN which has three convolutional layers with ReLU activation and Max Pooling,
-a flatten layer to convert 2D  feature maps to 1D, and two dense layers, the last one using softmax activation for classification.
+[![Model architecture](https://img.shields.io/badge/Model_Arch-FastConformer--TDT-blue#model-badge)](#model-architecture)
+| [![Model size](https://img.shields.io/badge/Params-0.6B-green#model-badge)](#model-architecture)
+| [![Language](https://img.shields.io/badge/Language-en-orange#model-badge)](#datasets)
 
-After training and testing, with the data, we got an accuracy of 88% and an overall mean square error (MSE) of 0.16824. You can see our loss and the raw accuracy in the ```eval.txt``` file of this repository.
 
-## Inference and Evaluation
-With the 04-29 caps, we did inference of the model. Here is the model predicting counts of images it has never seen before live, note the Predicted Number of Eggs statement at the bottom, that is the model figuring out the number of eggs in the image:
+## <span style="color:#466f00;">Description:</span>
 
-[inference_demo.webm](https://github.com/user-attachments/assets/7c83e4a6-f190-43d4-9f43-6266448c70b7)
+`parakeet-tdt-0.6b-v2` is a 600-million-parameter automatic speech recognition (ASR) model designed for high-quality English transcription, featuring support for punctuation, capitalization, and accurate timestamp prediction. Try Demo here: https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2 
 
-The model was accurate was nearly all the eggs except for the third one, where the correct answer is 3. 
+This XL variant of the FastConformer [1] architecture integrates the TDT [2] decoder and is trained with full attention, enabling efficient transcription of audio segments up to 24 minutes in a single pass. The model achieves an RTFx of 3380 on the HF-Open-ASR leaderboard with a batch size of 128. Note: *RTFx Performance may vary depending on dataset audio duration and batch size.*  
 
-Here, we graph the overall MSE with the MSE of each counted egg class:
+**Key Features**
+- Accurate word-level timestamp predictions  
+- Automatic punctuation and capitalization  
+- Robust performance on spoken numbers, and song lyrics transcription 
 
-![mse_fig](https://github.com/user-attachments/assets/856fe14a-80e0-49cc-a12e-26c730726052)
+For more information, refer to the [Model Architecture](#model-architecture) section and the [NeMo documentation](https://docs.nvidia.com/deeplearning/nemo/user-guide/docs/en/main/asr/models.html#fast-conformer).
 
-The model performs decently well across the classes!
-With the classified data from the site, we were able to get out the first iteration of the Fecundity model.
+This model is ready for commercial/non-commercial use.
+
+
+## <span style="color:#466f00;">License/Terms of Use:</span>
+
+GOVERNING TERMS: Use of this model is governed by the [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode.en) license.
+
+
+### <span style="color:#466f00;">Deployment Geography:</span>
+Global
+
+
+### <span style="color:#466f00;">Use Case:</span>
+
+This model serves developers, researchers, academics, and industries building applications that require speech-to-text capabilities, including but not limited to: conversational AI, voice assistants, transcription services, subtitle generation, and voice analytics platforms.
+
+
+### <span style="color:#466f00;">Release Date:</span>
+
+05/01/2025
+
+### <span style="color:#466f00;">Model Architecture:</span>
+
+**Architecture Type**: 
+
+FastConformer-TDT
+
+**Network Architecture**:
+
+* This model was developed based on [FastConformer encoder](https://docs.nvidia.com/deeplearning/nemo/user-guide/docs/en/main/asr/models.html#fast-conformer) architecture[1] and TDT decoder[2]
+* This model has 600 million model parameters.
+
+### <span style="color:#466f00;">Input:</span>
+- **Input Type(s):** 16kHz Audio
+- **Input Format(s):** `.wav` and `.flac` audio formats
+- **Input Parameters:** 1D (audio signal)
+- **Other Properties Related to Input:**  Monochannel audio
+
+### <span style="color:#466f00;">Output:</span>
+- **Output Type(s):**  Text
+- **Output Format:**  String
+- **Output Parameters:**  1D (text)
+- **Other Properties Related to Output:** Punctuations and Capitalizations included.
+
+Our AI models are designed and/or optimized to run on NVIDIA GPU-accelerated systems. By leveraging NVIDIA's hardware (e.g. GPU cores) and software frameworks (e.g., CUDA libraries), the model achieves faster training and inference times compared to CPU-only solutions. 
+
+## <span style="color:#466f00;">How to Use this Model:</span>
+
+#### Model Version
+
+Current version: parakeet-tdt-0.6b-v2. Previous versions can be [accessed](https://huggingface.co/collections/nvidia/parakeet-659711f49d1469e51546e021) here. 
+
+## <span style="color:#466f00;">Training and Evaluation Datasets:</span>
+
+### <span style="color:#466f00;">Training</span>
+
+This model was trained using the NeMo toolkit [3], following the strategies below:
+
+- Initialized from a wav2vec SSL checkpoint pretrained on the LibriLight dataset[7].  
+- Trained for 150,000 steps on 128 A100 GPUs. 
+- Dataset corpora were balanced using a temperature sampling value of 0.5.  
+- Stage 2 fine-tuning was performed for 2,500 steps on 4 A100 GPUs using approximately 500 hours of high-quality, human-transcribed data of NeMo ASR Set 3.0.  
+
+Training was conducted using this [example script](https://github.com/NVIDIA/NeMo/blob/main/examples/asr/asr_transducer/speech_to_text_rnnt_bpe.py) and [TDT configuration](https://github.com/NVIDIA/NeMo/blob/main/examples/asr/conf/fastconformer/hybrid_transducer_ctc/fastconformer_hybrid_tdt_ctc_bpe.yaml).
+
+The tokenizer was constructed from the training set transcripts using this [script](https://github.com/NVIDIA/NeMo/blob/main/scripts/tokenizers/process_asr_text_tokenizer.py).
+
+### <span style="color:#466f00;">Training Dataset</span>
+The model was trained on the Granary dataset, consisting of approximately 120,000 hours of English speech data:
+
+- 10,000 hours from human-transcribed NeMo ASR Set 3.0, including:
+  - LibriSpeech (960 hours)
+  - Fisher Corpus
+  - National Speech Corpus Part 1 
+  - VCTK
+  - VoxPopuli (English)
+  - Europarl-ASR (English)
+  - Multilingual LibriSpeech (MLS English) – 2,000-hour subset
+  - Mozilla Common Voice (v7.0)
+  - AMI
+
+- 110,000 hours of pseudo-labeled data from:
+  - YTC (YouTube-Commons) dataset[4]
+  - YODAS dataset [5]
+  - Librilight [7]
+
+All transcriptions preserve punctuation and capitalization. The Granary dataset will be made publicly available after presentation at Interspeech 2025.
+
+**Data Collection Method by dataset**
+
+* Hybrid: Automated, Human
+
+**Labeling Method by dataset**
+
+* Hybrid: Synthetic, Human 
+
+**Properties:**
+
+* Noise robust data from various sources
+* Single channel, 16kHz sampled data
+
+#### Evaluation Dataset
+
+Huggingface Open ASR Leaderboard datasets are used to evaluate the performance of this model. 
+
+**Data Collection Method by dataset**
+* Human
+
+**Labeling Method by dataset**
+* Human
