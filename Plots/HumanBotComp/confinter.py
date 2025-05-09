@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = "/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv"
+data = "MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv"
 
 df = pd.read_csv(data)
 
@@ -33,17 +33,18 @@ grouped = df.groupby('AvgSum_bin').agg(
 
 # plot
 plt.figure(figsize=(8, 5))
+plt.rc('font', size=14)
 
 plt.errorbar(grouped['bin_center'], grouped['PrimarySum_mean'], yerr=grouped['PrimarySum_ci'],
-             fmt='o-', label='PrimarySum')
+             fmt='o-', label='Human 1 Count')
 plt.errorbar(grouped['bin_center'], grouped['SecondarySum_mean'], yerr=grouped['SecondarySum_ci'],
-             fmt='s-', label='SecondarySum')
+             fmt='s-', label='Human 2 Count')
 plt.errorbar(grouped['bin_center'], grouped['BotSum_mean'], yerr=grouped['BotSum_ci'],
-             fmt='^-', label='BotSum')
+             fmt='^-', label='Model Predicted Count')
 
-plt.xlabel('AverageSum (bin center)')
-plt.ylabel('Sum')
-plt.title('Sums by AverageSum Bin with 95% Confidence Interval')
+plt.xlabel("Humans' Average Count")
+plt.ylabel('Egg Count')
+plt.title('Human and Model Counts with 95% Confidence Interval')
 plt.legend()
 plt.tight_layout()
-plt.savefig("/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/ci2.png")
+plt.savefig("ci3.png")

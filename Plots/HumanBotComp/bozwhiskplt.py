@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.patches import Patch
 
 # Load your CSV file
-df = pd.read_csv('/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv')
+df = pd.read_csv('MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv')
 
 # Create bins of size 5 for 'AverageSum'
 bin_edges = np.arange(df['AverageSum'].min(), df['AverageSum'].max() + 6, 5)
@@ -16,10 +16,13 @@ human_counts_by_bin = [group[['PrimarySum', 'SecondarySum']].values.flatten() fo
 bot_counts_by_bin = [group['BotSum'].values for _, group in grouped]
 correct_counts_by_bin = [group['AverageSum'].values for _, group in grouped]
 
-bin_labels = [str(interval) for interval in grouped.groups.keys()]
+bin_labels = [str((float(str(interval).split(',')[0][1:]) + 
+              float(str(interval).split(',')[1][:-1]))//2) for interval in 
+              grouped.groups.keys()]
 positions = np.arange(len(bin_labels))
 
 plt.figure(figsize=(12, 7))
+plt.rc('font', size=20)
 
 # Boxplot for human counts per bin
 plt.boxplot(human_counts_by_bin, positions=positions - 0.2, widths=0.3, patch_artist=True,
@@ -43,5 +46,5 @@ legend_handles = [
 plt.legend(handles=legend_handles, loc='upper left')
 
 plt.tight_layout()
-plt.savefig("bw3_54.png")
+plt.savefig("bw5_54.png")
 plt.show()
