@@ -32,19 +32,23 @@ grouped = df.groupby('AvgSum_bin').agg(
 ).reset_index()
 
 # plot
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(12, 5))
 plt.rc('font', size=14)
 
 plt.errorbar(grouped['bin_center'], grouped['PrimarySum_mean'], yerr=grouped['PrimarySum_ci'],
-             fmt='o-', label='Human 1 Count')
+             fmt='-', linewidth=1.5, capsize=7, capthick=1.5, elinewidth=1, 
+             color='fuchsia', label='Human 1 Count')
 plt.errorbar(grouped['bin_center'], grouped['SecondarySum_mean'], yerr=grouped['SecondarySum_ci'],
-             fmt='s-', label='Human 2 Count')
+             fmt='-', linewidth=1.5, capsize=7, capthick=1.5, elinewidth=1, 
+             color='deeppink', label='Human 2 Count')
 plt.errorbar(grouped['bin_center'], grouped['BotSum_mean'], yerr=grouped['BotSum_ci'],
-             fmt='^-', label='Model Predicted Count')
-
+             fmt='-', linewidth=1.5, capsize=7, capthick=1.5, elinewidth=1, 
+             color='limegreen', label='Model Predicted Count')
+plt.text(1, 55, "R² value = 0.925")
 plt.xlabel("Humans' Average Count")
 plt.ylabel('Egg Count')
 plt.title('Human and Model Counts with 95% Confidence Interval')
 plt.legend()
+plt.xticks(np.arange(0, 70, 7.5))
 plt.tight_layout()
 plt.savefig("ci3.png")
