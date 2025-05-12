@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("/Users/shreyanakum/Downloads/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv")
+df = pd.read_csv("/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/Plots/HumanBotComp/MoDataV1_5-4_tiles_MoDataV1.csv_sums_CSV.csv")
 
 sum_v_diff = dict()
 
@@ -28,8 +28,12 @@ cept = coeffs[1]
 x_line = np.linspace(min(list(sum_v_diff.keys())), max(list(sum_v_diff.keys())), 100)
 y_line = slope * x_line + cept
 print("slope: ", slope)
+print("cept:", cept)
+plt.ylim(0, 10)
+plt.rc('font', size=14)
+plt.rc('axes', titlesize=14)
 plt.plot(x_line, y_line, color="red")
-plt.xlabel("Average Sum")
-plt.ylabel("Model Absolute Difference")
-plt.title("Average Sum v. Model Absolute Difference")
-plt.savefig("/Users/shreyanakum/Downloads/CNN-Classifier/Plots/ScatterComp/BotCorrect***.png")
+plt.xlabel("Average Count", fontsize=16)
+plt.ylabel("Absolute Difference", fontsize=16)
+plt.title("Model Prediction")
+plt.savefig("bot1.png")
