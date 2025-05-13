@@ -102,7 +102,7 @@ def predict_egg_count_default_nom2(image_path, name, model):
 
     return egg_count
 
-def get_tile_preds_data_file(name, model, model2):
+def get_tile_preds_data_file_list(name, model, model2):
     mod1 = tf.keras.models.load_model(model)
     mod2 = None
     if model2 != None:
@@ -120,6 +120,27 @@ def get_tile_preds_data_file(name, model, model2):
                 continue
             label = int(img.split('eggs')[1].split('count')[0])
             predicted_eggs = predict_egg_count_default(f"{TESTING_SET}/{img}", name, mod1, mod2)
+            root_image_a = img.split('count')[1]
+            root_image_b = root_image_a.split('pt')
+            root_image = root_image_b[0]
+            root_image = root_image.strip()
+            writer.writerow([img, root_image, predicted_eggs, label])
+    return csv_name
+
+def get_tile_preds_data_file(name, model):
+    csv_name = f'{name}_tile_counts_CD.csv'
+    with open(csv_name, "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
+
+    with open(csv_name, "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
+        for img in os.listdir(f"{TESTING_SET}"):
+            if 'eggs' not in img or 'unsure' in img:
+                continue
+            label = int(img.split('eggs')[1].split('count')[0])
+            predicted_eggs = predict_egg_count_default(f"{TESTING_SET}/{img}", name, model)
             root_image_a = img.split('count')[1]
             root_image_b = root_image_a.split('pt')
             root_image = root_image_b[0]
@@ -203,17 +224,8 @@ def MSEs_metrics_and_graph(caps_csvs, name):
 
 def get_mse_table_and_plot_and_csvs(model, name):
     print(f'Getting tiles for {name}')
-    tiles_csv_name = get_tile_preds_data_file(name, paths[0], None)
+    tiles_csv_name = get_tile_preds_data_file(name, model)
     print(f'Getting sums for {name}')
     sums_csv_name = get_actual_total(tiles_csv_name, name)
     print(f'Getting metrics for {name}')
     MSEs_metrics_and_graph(sums_csv_name, name)
-
-if __name__ == '__main__':
-    for name, paths in TOP_MODEL_NAMES_AND_PATHS.items():
-        print(f'Getting tiles for {name}')
-        tiles_csv_name = get_tile_preds_data_file(name, paths[0], paths[1])
-        print(f'Getting sums for {name}')
-        sums_csv_name = get_actual_total(tiles_csv_name, name)
-        print(f'Getting metrics for {name}')
-        MSEs_metrics_and_graph(sums_csv_name, name)

@@ -6,6 +6,15 @@ import tensorflow.keras.metrics
 import tensorflow.keras.losses
 from sklearn.model_selection import train_test_split
 from collections import Counter
+import time
+import csv
+import pandas as pd
+import numpy as np
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+import csv
+from scipy.optimize import curve_fit
+from mses_module import get_mse_table_and_plot_and_csvs
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
@@ -97,6 +106,10 @@ while len(current_X_train) > 0:
     # Evaluate and store results (now with correct MSE naming)
     test_loss, test_sparse_mse = model.evaluate(X_test, y_test, verbose=0)
     results.append((len(current_X_train), test_loss, test_sparse_mse))
+
+    ### test in winter 2017 CD
+    get_mse_table_and_plot_and_csvs(model, f"XTrain{len(current_X_train)}")
+    ### end winter testing
    
     # Class-aware reduction with safety check
     prev_size = len(current_X_train)
