@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-data_dir = 'mses' 
+data_dir = 'AlexResults/mses' 
 
 # Prepare storage for all data
 # all_data = {}
@@ -29,7 +29,7 @@ for fname in sorted(os.listdir(data_dir)):
                 x.append(samples)
                 y.append(mse)
 
-with open('sample_mses.csv', 'w') as file:
+with open('sample_mses_alex.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(['X', 'Y'])
     for i in range(len(x)):
@@ -38,7 +38,7 @@ fig, ax = plt.subplots(figsize=(16, 8))
 plt.scatter(x, y)
 X = np.array(x)
 Y = np.array(y)
-a, b, c = np.polyfit(X, Y, 2)
-plt.plot(X, a*X*X + b*X + c, color = 'olive')
+a, b = np.polyfit(X, Y, 1)
+plt.plot(X, a*X + b, color = 'olive')
 plt.tight_layout()
-plt.savefig("mses_ov_samps2")
+plt.savefig("mses_ov_samps3_alex")
