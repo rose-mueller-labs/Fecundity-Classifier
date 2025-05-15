@@ -21,7 +21,7 @@ BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
 
-TESTING_SET = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestingSets/Winter 2017 2 21 C pops cap-sliced"
+TESTING_SET = "/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TestingSets/5-4-cap-sliced-Angela"
 
 TOP_MODEL_NAMES_AND_PATHS = {
     # 'FecundityModelV1': ('/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/fecundity_model_v1.h5', None),
@@ -107,7 +107,7 @@ def get_tile_preds_data_file_list(name, model, model2):
     mod2 = None
     if model2 != None:
         mod2 = tf.keras.models.load_model(model2)
-    csv_name = f'{name}_tile_counts_CD.csv'
+    csv_name = f'{name}_tile_counts_5-4Angela.csv'
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
@@ -128,7 +128,7 @@ def get_tile_preds_data_file_list(name, model, model2):
     return csv_name
 
 def get_tile_preds_data_file(name, model):
-    csv_name = f'{name}_tile_counts_CD.csv'
+    csv_name = f'{name}_tile_counts_5-4Angela.csv'
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])

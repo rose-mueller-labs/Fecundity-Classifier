@@ -58,7 +58,7 @@ def load_data(data_dir):
     return np.array(images), np.array(labels)
 
 # load data
-data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/SilkyJohnson4'
+data_dir = '/home/drosophila-lab/Documents/Fecundity/CNN-Classifier/TrainingSets/MoDataV1'
 X, y = load_data(data_dir)
 
 # normalize
