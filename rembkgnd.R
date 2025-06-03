@@ -1,4 +1,4 @@
-library(EBImage)
+library("EBImage")
 
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
