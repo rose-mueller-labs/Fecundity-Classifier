@@ -2,7 +2,9 @@
 
 A convolutional neural network (CNN) trained to classify **fruit fly fecundity-related image data** into a maximum of 43 eggs in one tile. This model is part of ongoing research on developing machine learning models to automatically count eggs through images.
 
-See more details about this project [here](https://drive.google.com/file/d/1tDlDDwiDEWAMkyRW2rBC2F8td4dDidTX/view)
+See more details about this project [here](https://drive.google.com/file/d/1tDlDDwiDEWAMkyRW2rBC2F8td4dDidTX/view).
+
+In this project we utilize the idea of "tiling" to quantify caps, a recursive method of small object detection.
 
 ---
 
