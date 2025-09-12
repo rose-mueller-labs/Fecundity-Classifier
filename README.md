@@ -69,8 +69,9 @@ Model: "sequential"
 
 ## 📈 Performance
 
-* **Baseline CNN classifier** — accuracy and loss metrics available after evaluation on the held-out test set.
-* Metrics reported will include: accuracy, precision, recall, and confusion matrix across all 43 classes.
+* **Baseline CNN classifier** — see ./Tests[X] and ./Plots
+
+<img width="1200" height="500" alt="image" src="https://github.com/user-attachments/assets/54b07a9a-ff06-441c-bc7d-2e08229cbcc8" />
 
 ---
 
@@ -79,8 +80,5 @@ Model: "sequential"
 ---
 
 ## ✅ Future Work
-* Further test it
+* Further testing and new ideas for removing background
 
----
-
-Would you like me to also **add a performance section with placeholders for metrics** (accuracy, F1, etc.), so you can just plug in results once you have them?
