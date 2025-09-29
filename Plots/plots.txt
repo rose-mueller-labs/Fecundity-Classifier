@@ -1,3 +1,0 @@
-- humans against their avg & bot against the human avg -> whisker plot
-- compare MSEs of all models per CAP on one plot (5-4)
-- do the purple plot thing on bot and then purple plot thing on human?

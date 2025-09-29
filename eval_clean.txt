@@ -1,4 +1,0 @@
-test accuracy: 0.8870790004730225
-test loss: 0.31607043743133545
----DISREGARD BELOW THIS---
-y_pred:
