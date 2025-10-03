@@ -1,4 +1,4 @@
-OldStuff
 DATA
-.venvs
+.venv
 1.DataProcessing/DATASETS
+1.DataProcessing/model_architecture/models

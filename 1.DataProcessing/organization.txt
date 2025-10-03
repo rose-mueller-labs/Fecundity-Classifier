@@ -4,12 +4,12 @@
     c. 4-30 & 5-1 & 5-2
     d. Jacob
 2. Make the black and white versions of these datasets
-3. Train 3 different CNN scripts on the 14 datasets
+3. Train 3 different CNN scripts on the 14 datasets (do this 6 times?)
     a. Save testing tile output metrics:
         (MSE, accuracy)
 4. Testing:
     a. 6 times on 5-4
     b. 6 times on CD
     c. 6 times on Alden's CD
-5. Conduct a signed-ranked wilcoxon test to determine which model 
-architecture + dataset combination is best.
+5. Run signed ranked wilcoxon test on pairs of BW v NON for each output** ask Zach ab this step
+6. Conduct a signed-ranked wilcoxon test to determine which model architecture + dataset combination is best.

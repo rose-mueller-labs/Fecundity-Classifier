@@ -13,15 +13,12 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 # - add k stratified
 ##
 
-print("Did you update max eggs?")
-time.sleep(10)
-
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = 42
+MAX_EGGS = int(input("MAX EGGS: "))
 N_BINS = 10
 
 # load and preprocess ** might need to fix this st all classes are balanced, lots of 0s atm
@@ -51,15 +48,15 @@ def create_weighted_mse(class_weight_dict):
 # load 
 data_dir = input("Paste partioned data directory path here: ")
 which_person = input("'jacob' or 'alex': ")
-iteration = int(input("Which iteration is this training on: "))
-model_name = f"{which_person}_{iteration}.h5"
+iteration = int(input("Which iteration is this: "))
+model_name = f"{which_person}_{data_dir.split('/')[-1]}_v0.{iteration}.h5"
 X, y = load_data(data_dir)
 
 # normalize 
 X = X.astype('float32') / 255.0
 
 # split 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
 
 # create 
 model = models.Sequential([
@@ -95,13 +92,13 @@ history = model.fit(
     validation_data=(X_test, y_test)
 )
 
-y_pred = model.predict(X_test).flatten()
-test_mse = mean_squared_error(y_test, y_pred)
-test_mae = mean_absolute_error(y_test, y_pred)
-test_r2 = r2_score(y_test, y_pred)
+y_pred_cls = np.argmax(model.predict(X_test), axis=1)
+test_mse = mean_squared_error(y_test, y_pred_cls)
+test_mae = mean_absolute_error(y_test, y_pred_cls)
+test_r2 = r2_score(y_test, y_pred_cls)
 
 # Create bins for evaluation
-bins = np.array([0, 8, 16, MAX_EGGS])
+bins = np.array(list(range(MAX_EGGS)))
 bin_indices = np.digitize(y_test, bins)
 
 # eval the model
@@ -117,7 +114,7 @@ with open (f'EVAL_{model_name}.txt', 'w') as file:
     for bin_idx in range(1, len(bins)):
         mask = bin_indices == bin_idx
         if np.any(mask):
-            bin_mse = mean_squared_error(y_test[mask], y_pred[mask])
+            bin_mse = mean_squared_error(y_test[mask], y_pred_cls[mask])
             file.write(f"Bin {bins[bin_idx-1]}-{bins[bin_idx]} MSE: {bin_mse:.4f}\n")
 
 # save
