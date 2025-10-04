@@ -14,6 +14,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 ##
 
 # constants
+
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
@@ -103,7 +104,7 @@ bin_indices = np.digitize(y_test, bins)
 
 # eval the model
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
-with open (f'EVAL_{model_name}.txt', 'w') as file:
+with open (f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/model_validation_results/EVAL_{model_name}.txt', 'w') as file:
     file.write(f'test accuracy: {test_acc}\n\n')
     file.write(f'test loss: {test_loss}\n\n')
 
@@ -118,4 +119,4 @@ with open (f'EVAL_{model_name}.txt', 'w') as file:
             file.write(f"Bin {bins[bin_idx-1]}-{bins[bin_idx]} MSE: {bin_mse:.4f}\n")
 
 # save
-model.save(model_name)
+model.save(f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/{model_name}')
