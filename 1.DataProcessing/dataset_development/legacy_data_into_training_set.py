@@ -7,18 +7,19 @@ ROOT_DEST_PATH = "/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/
 
 DS_PATHS = {'4-30': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/04-30-cap-800x800-sliced-Alexander',
             '5-1': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-1-cap-800x800-sliced-Alexander',
-            '5-2': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-2-cap-800x800-sliced-Alex'
+            '5-2S': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-2-cap-800x800-sliced-Alex-supplemented',
+            '5-2O': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-2-cap-800x800-sliced-Alex-supl-no-5-2-zeros'
             }
 
-BW_THRESH = 150 ## ask zach or alden ab this threshold
+BW_THRESH = 150 ## change to grayscale
 
 multiple_sets = bool(int(input("Are there multiple sets in this dataset? If yes, type 1. Else, type 0: ")))
 # (source, dest)
 
-set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2. ").split(' ')
+set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O. ").split(' ')
 valid = bool(int(input(f"You inputted: {set_names}. Is this correct? Type 1 if yes. Type 0 if not: ")))
 if not valid:
-    set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2.   ").split(' ')
+    set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O.   ").split(' ')
 
 bw = bool(int(input('Regular: 0. Black and White: 1. Type: ')))
 if bw:

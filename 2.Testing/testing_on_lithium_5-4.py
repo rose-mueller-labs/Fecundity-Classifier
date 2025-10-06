@@ -25,10 +25,12 @@ MAX_EGGS = 42
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 
 TOP_MODEL_NAMES_AND_PATHS = {
-    'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
-    'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
-    'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
-    'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
+    # 'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
+    # 'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
+    # 'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
+    # 'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
+    'Alex_5-2S_v0.0':(f'{BASE_DIR}/alex_5-2S_v0.0.h5',None),
+    'Alex_5-2O_v0.0':(f'{BASE_DIR}/alex_5-2O_v0.0.h5',None),
     # 'Alex_BW_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_BW_4-30_5-1_v0.0.h5',None),
     # 'Alex_BW_4-30_v0.0':(f'{BASE_DIR}/alex_BW_4-30_v0.0.h5',None),
     # 'Alex_BW_5-1_v0.0':(f'{BASE_DIR}/alex_BW_5-1_v0.0.h5',None)
@@ -126,7 +128,7 @@ def get_tile_preds_data_file(name, model, model2):
     return csv_name
 
 def get_actual_total(csv_path, name):
-    actual_csv_name = f'{name}_sums_CSV.csv'
+    actual_csv_name = f'{name}_sums__lith54_CSV.csv'
     # get all unique names => get the ones with the same names => get the actual counts => sum
     df = pd.read_csv(csv_path)
     root_image_names = np.array(df['RootImage'].unique())
@@ -170,7 +172,7 @@ def MSEs_metrics_and_graph(caps_csvs, name):
     mse_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean((x['HumanSum']-x['BotSum'])**2))
 
     r2_score_by_counts = df.groupby('HumanSum').apply(lambda x: r2_score(x['HumanSum'], x['BotSum']))
-    with open(f"{name}_metrics.txt", "w") as file:
+    with open(f"{name}_metrics_lithium54.txt", "w") as file:
         print(f'TOTAL MSE: {total_mse}\n', file=file)
         print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n', file=file)
         print(f'TOTAL R2SCORE: {total_r2}\n', file=file)
@@ -197,7 +199,7 @@ def MSEs_metrics_and_graph(caps_csvs, name):
     plt.legend()
     plt.tight_layout()
     plt.plot()
-    plt.savefig(f"{name}_full_cap_MSEs.png")
+    plt.savefig(f"{name}_full_cap_lith54_MSEs.png")
 
 def get_mse_table_and_plot_and_csvs(model, name):
     print(f'Getting tiles for {name}')
