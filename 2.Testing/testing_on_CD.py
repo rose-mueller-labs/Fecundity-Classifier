@@ -29,11 +29,17 @@ TOP_MODEL_NAMES_AND_PATHS = {
     #'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
     # 'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
     # 'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
-    'Alex_5-2S_v0.0':(f'{BASE_DIR}/alex_5-2S_v0.0.h5',None),
-    'Alex_5-2O_v0.0':(f'{BASE_DIR}/alex_5-2O_v0.0.h5',None),
+    # 'Alex_5-2S_v0.0':(f'{BASE_DIR}/alex_5-2S_v0.0.h5',None),
+    # 'Alex_5-2O_v0.0':(f'{BASE_DIR}/alex_5-2O_v0.0.h5',None),
     # 'Alex_BW_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_BW_4-30_5-1_v0.0.h5',None),
     # 'Alex_BW_4-30_v0.0':(f'{BASE_DIR}/alex_BW_4-30_v0.0.h5',None),
     # 'Alex_BW_5-1_v0.0':(f'{BASE_DIR}/alex_BW_5-1_v0.0.h5',None)
+    'Alex_4-30_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5',None),
+    'Alex_4-30_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2S_v0.0.h5',None),
+    'Alex_4-30_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-2O_v0.0.h5',None),
+    'Alex_4-30_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-2S_v0.0.h5',None),
+    'Alex_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_5-1_5-2O_v0.0.h5',None),
+    'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
 }
 
 def predict_egg_count_NoZ(image_path):
