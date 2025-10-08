@@ -23,6 +23,7 @@ BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
+CD_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_CD_results"
 
 TOP_MODEL_NAMES_AND_PATHS = {
     # 'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
@@ -108,11 +109,11 @@ def get_tile_preds_data_file(name, model, model2):
     if model2 != None:
         mod2 = tf.keras.models.load_model(model2)
     csv_name = f'{name}_tile_counts_lith.csv'
-    with open(csv_name, "w", newline='') as file:
+    with open(f'{CD_DIR}/{csv_name}', "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
 
-    with open(csv_name, "w", newline='') as file:
+    with open(f'{CD_DIR}/{csv_name}', "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
         for img in os.listdir(f"{TESTING_SET}"):
@@ -125,7 +126,7 @@ def get_tile_preds_data_file(name, model, model2):
             root_image = root_image_b[0]
             root_image = root_image.strip()
             writer.writerow([img, root_image, predicted_eggs, label])
-    return csv_name
+    return f'{CD_DIR}/{csv_name}'
 
 def get_actual_total(csv_path, name):
     actual_csv_name = f'{name}_sums__lith54_CSV.csv'
@@ -143,13 +144,13 @@ def get_actual_total(csv_path, name):
         actual_counts[row['RootImage']] += row['Bot']
         expected_counts[row['RootImage']] += row['Human']
     
-    with open(actual_csv_name, 'w', newline='') as file:
+    with open(f'{CD_DIR}/{actual_csv_name}', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['RootImage', 'BotSum', 'HumanSum'])
         for root_img, actual in actual_counts.items():
             expected = expected_counts[root_img]
             writer.writerow([root_img, actual, expected])
-    return actual_csv_name
+    return f'{CD_DIR}/{actual_csv_name}'
 
 def MSEs_get_class_counts(cap_csvs):
     df = pd.read_csv(cap_csvs)
@@ -172,7 +173,7 @@ def MSEs_metrics_and_graph(caps_csvs, name):
     mse_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean((x['HumanSum']-x['BotSum'])**2))
 
     r2_score_by_counts = df.groupby('HumanSum').apply(lambda x: r2_score(x['HumanSum'], x['BotSum']))
-    with open(f"{name}_metrics_lithium54.txt", "w") as file:
+    with open(f"{CD_DIR}/{name}_metrics_lithium54.txt", "w") as file:
         print(f'TOTAL MSE: {total_mse}\n', file=file)
         print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n', file=file)
         print(f'TOTAL R2SCORE: {total_r2}\n', file=file)
