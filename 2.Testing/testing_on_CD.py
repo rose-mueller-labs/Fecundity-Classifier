@@ -176,6 +176,9 @@ def MSEs_metrics_and_graph(caps_csvs, name):
     total_r2 = r2_score(df['HumanSum'], df['BotSum'])
 
     mse_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean((x['HumanSum']-x['BotSum'])**2))
+    std_dev_by_counts = df.groupby('HumanSum').apply(lambda x: np.std(x['BotSum']))
+    var_by_counts = df.groupby('HumanSum').apply(lambda x: np.var(x['BotSum']))
+    mean_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean(x['BotSum']))
 
     r2_score_by_counts = df.groupby('HumanSum').apply(lambda x: r2_score(x['HumanSum'], x['BotSum']))
     with open(f"{name}_metrics_CD.txt", "w") as file:
