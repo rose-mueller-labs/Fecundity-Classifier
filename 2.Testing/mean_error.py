@@ -29,7 +29,7 @@ def MSEs_metrics_and_graph(caps_csvs, name):
 
     print(mean_by_counts.index)
 
-    plt.scatter(data['Human'], data['Bot'])
+    plt.scatter(data['Human'], data['Bot'] - data['Human'])
     plt.xlabel("Human Counts")
     plt.ylabel("Bot Counts")
     plt.savefig(f'{name}_CD.png')
