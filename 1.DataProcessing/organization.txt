@@ -1,3 +1,10 @@
+## Naming
+O = No zeros
+S = Supplemented with zeros
+J = Jacob CSV data
+A = Alex CSV data
+
+## Plan
 1. Create 7 datasets
     a. 4-30, 5-1, 5-2
     b. 4-30 & 5-1, 4-30 & 5-2, 5-2 & 5-1

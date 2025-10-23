@@ -1,0 +1,321 @@
+Image,Part,Count,Whitespace
+ACO4 Control 5-3 8,74,5,False
+ACO4 Control 5-3 9,79,9,False
+ACO4 Control 5-3 22,38,0,False
+ACO4 Control 5-3 27,59,6,False
+ACO4 Control 5-3 38,60,3,False
+ACO4 Control 5-3 42,85,5,False
+ACO4 Control 5-3 46,14,4,False
+ACO4 Lithium 5-3 1,60,4,False
+ACO4 Lithium 5-3 2,84,4,False
+ACO4 Lithium 5-3 5,59,4,False
+ACO4 Lithium 5-3 12,42,4,False
+ACO4 Lithium 5-3 18,41,4,False
+ACO4 Lithium 5-3 23,77,4,False
+ACO4 Lithium 5-3 24,84,5,False
+ACO4 Lithium 5-3 27,60,0,False
+ACO4 Lithium 5-3 38,25,4,False
+ACO4 Lithium 5-3 38,60,0,False
+AO4 Control 5-3 4,24,4,False
+AO4 Control 5-3 4,59,10,False
+AO4 Control 5-3 4,85,6,False
+AO4 Control 5-3 7,37,5,False
+AO4 Control 5-3 13,73,8,False
+AO4 Control 5-3 16,23,4,False
+AO4 Control 5-3 16,41,6,False
+AO4 Control 5-3 21,62,4,False
+AO4 Control 5-3 22,13,4,False
+AO4 Control 5-3 22,57,5,False
+AO4 Control 5-3 25,26,2,False
+AO4 Control 5-3 29,24,0,False
+AO4 Control 5-3 29,25,0,False
+AO4 Control 5-3 29,35,0,False
+AO4 Control 5-3 31,76,0,False
+AO4 Control 5-3 43,15,6,False
+AO4 Control 5-3 47,25,0,False
+AO4 Control 5-3 47,27,5,False
+AO4 Lithium 5-3 8,16,4,False
+AO4 Lithium 5-3 11,50,0,False
+AO4 Lithium 5-3 15,27,4,False
+AO4 Lithium 5-3 15,68,6,False
+AO4 Lithium 5-3 16,54,5,False
+AO4 Lithium 5-3 25,44,2,False
+AO4 Lithium 5-3 28,86,0,False
+AO4 Lithium 5-3 28,87,2,False
+AO4 Lithium 5-3 29,35,4,False
+AO4 Lithium 5-3 29,45,4,False
+AO4 Lithium 5-3 29,46,3,False
+AO4 Lithium 5-3 31,6,7,False
+AO4 Lithium 5-3 34,73,2,False
+AO4 Lithium 5-3 35,60,0,False
+AO4 Lithium 5-3 35,87,5,False
+AO4 Lithium 5-3 36,3,0,False
+AO4 Lithium 5-3 37,51,0,False
+AO4 Lithium 5-3 41,16,5,False
+AO4 Lithium 5-3 47,25,3,False
+AO4 Lithium 5-3 47,27,2,False
+AO4 Lithium 5-3 48,84,5,False
+CO4 Control 5-3 2,39,5,False
+CO4 Control 5-3 3,63,5,False
+CO4 Control 5-3 3,74,3,False
+CO4 Control 5-3 3,85,4,False
+CO4 Control 5-3 4,28,5,False
+CO4 Control 5-3 4,85,4,False
+CO4 Control 5-3 5,18,4,False
+CO4 Control 5-3 5,29,6,False
+CO4 Control 5-3 9,39,12,False
+CO4 Control 5-3 9,70,9,False
+CO4 Control 5-3 11,87,7,False
+CO4 Control 5-3 12,22,6,False
+CO4 Control 5-3 15,62,7,False
+CO4 Control 5-3 15,95,6,False
+CO4 Control 5-3 16,52,7,False
+CO4 Control 5-3 16,58,6,False
+CO4 Control 5-3 16,74,4,False
+CO4 Control 5-3 17,28,4,False
+CO4 Control 5-3 17,52,7,False
+CO4 Control 5-3 18,38,5,False
+CO4 Control 5-3 18,74,4,False
+CO4 Control 5-3 19,51,7,False
+CO4 Control 5-3 19,62,10,False
+CO4 Control 5-3 19,72,10,False
+CO4 Control 5-3 19,83,8,False
+CO4 Control 5-3 25,32,6,False
+CO4 Control 5-3 25,51,11,False
+CO4 Control 5-3 25,61,12,False
+CO4 Control 5-3 26,49,12,False
+CO4 Control 5-3 26,50,8,False
+CO4 Control 5-3 27,16,6,False
+CO4 Control 5-3 27,18,6,False
+CO4 Control 5-3 31,69,7,False
+CO4 Control 5-3 31,77,9,False
+CO4 Control 5-3 31,88,15,False
+CO4 Control 5-3 36,13,8,False
+CO4 Control 5-3 36,28,8,False
+CO4 Control 5-3 36,32,8,False
+CO4 Control 5-3 37,74,7,False
+CO4 Control 5-3 38,16,13,False
+CO4 Control 5-3 38,69,9,False
+CO4 Control 5-3 39,62,13,False
+CO4 Control 5-3 40,79,10,False
+CO4 Control 5-3 41,28,12,False
+CO4 Control 5-3 41,38,7,False
+CO4 Control 5-3 45,38,5,False
+CO4 Control 5-3 47,58,7,False
+CO4 Control 5-3 49,41,11,False
+CO4 Control 5-3 49,62,8,False
+CO4 Control 5-3 49,72,3,False
+CO4 Control 5-3 50,72,8,False
+CO4 Lithium 5-3 1,18,10,False
+CO4 Lithium 5-3 2,15,6,False
+CO4 Lithium 5-3 2,18,17,False
+CO4 Lithium 5-3 2,28,9,False
+CO4 Lithium 5-3 3,15,9,False
+CO4 Lithium 5-3 3,85,12,False
+CO4 Lithium 5-3 3,87,12,False
+CO4 Lithium 5-3 4,25,5,False
+CO4 Lithium 5-3 4,26,7,False
+CO4 Lithium 5-3 4,36,3,False
+CO4 Lithium 5-3 4,45,0,False
+CO4 Lithium 5-3 4,46,0,False
+CO4 Lithium 5-3 4,55,2,False
+CO4 Lithium 5-3 4,79,6,False
+CO4 Lithium 5-3 4,85,5,False
+CO4 Lithium 5-3 5,64,5,False
+CO4 Lithium 5-3 5,84,3,False
+CO4 Lithium 5-3 8,16,5,False
+CO4 Lithium 5-3 8,39,8,False
+CO4 Lithium 5-3 9,33,8,False
+CO4 Lithium 5-3 9,59,8,False
+CO4 Lithium 5-3 10,60,0,False
+CO4 Lithium 5-3 10,85,6,False
+CO4 Lithium 5-3 10,86,6,False
+CO4 Lithium 5-3 11,6,4,False
+CO4 Lithium 5-3 11,17,4,False
+CO4 Lithium 5-3 11,18,4,False
+CO4 Lithium 5-3 12,86,6,False
+CO4 Lithium 5-3 14,14,7,False
+CO4 Lithium 5-3 14,26,5,False
+CO4 Lithium 5-3 15,87,5,False
+CO4 Lithium 5-3 15,96,5,False
+CO4 Lithium 5-3 16,48,7,False
+CO4 Lithium 5-3 16,49,6,False
+CO4 Lithium 5-3 19,96,18,False
+CO4 Lithium 5-3 20,27,12,False
+CO4 Lithium 5-3 21,12,13,False
+CO4 Lithium 5-3 21,31,8,False
+CO4 Lithium 5-3 22,52,6,False
+CO4 Lithium 5-3 23,13,19,False
+CO4 Lithium 5-3 23,22,16,False
+CO4 Lithium 5-3 26,17,7,False
+CO4 Lithium 5-3 26,40,11,False
+CO4 Lithium 5-3 26,78,5,False
+CO4 Lithium 5-3 27,19,18,False
+CO4 Lithium 5-3 27,40,7,False
+CO4 Lithium 5-3 27,60,6,False
+CO4 Lithium 5-3 28,14,6,False
+CO4 Lithium 5-3 28,64,2,False
+CO4 Lithium 5-3 28,75,6,False
+CO4 Lithium 5-3 28,84,5,False
+CO4 Lithium 5-3 30,14,8,False
+CO4 Lithium 5-3 30,39,5,False
+CO4 Lithium 5-3 31,16,7,False
+CO4 Lithium 5-3 31,50,17,False
+CO4 Lithium 5-3 31,85,7,False
+CO4 Lithium 5-3 32,78,10,False
+CO4 Lithium 5-3 35,88,11,False
+CO4 Lithium 5-3 36,44,4,False
+CO4 Lithium 5-3 36,56,3,False
+CO4 Lithium 5-3 37,13,5,False
+CO4 Lithium 5-3 37,17,15,False
+CO4 Lithium 5-3 37,27,8,False
+CO4 Lithium 5-3 37,29,16,False
+CO4 Lithium 5-3 38,77,7,False
+CO4 Lithium 5-3 39,85,5,False
+CO4 Lithium 5-3 39,96,9,False
+CO4 Lithium 5-3 40,86,7,False
+CO4 Lithium 5-3 43,6,7,False
+CO4 Lithium 5-3 43,17,7,False
+CO4 Lithium 5-3 43,39,7,False
+CO4 Lithium 5-3 43,49,5,False
+CO4 Lithium 5-3 44,16,9,False
+CO4 Lithium 5-3 44,38,8,False
+CO4 Lithium 5-3 45,42,7,False
+CO4 Lithium 5-3 45,86,10,False
+CO4 Lithium 5-3 50,41,9,False
+CO4 Lithium 5-3 50,66,7,False
+NCO4 Control 5-3 3,58,8,False
+NCO4 Control 5-3 3,87,8,False
+NCO4 Control 5-3 4,25,8,False
+NCO4 Control 5-3 4,77,7,False
+NCO4 Control 5-3 4,78,7,False
+NCO4 Control 5-3 5,39,7,False
+NCO4 Control 5-3 5,60,7,False
+NCO4 Control 5-3 5,69,11,False
+NCO4 Control 5-3 5,79,7,False
+NCO4 Control 5-3 5,84,10,False
+NCO4 Control 5-3 5,85,6,False
+NCO4 Control 5-3 6,29,10,False
+NCO4 Control 5-3 6,74,10,False
+NCO4 Control 5-3 9,45,5,False
+NCO4 Control 5-3 9,47,7,False
+NCO4 Control 5-3 9,54,4,False
+NCO4 Control 5-3 12,17,10,False
+NCO4 Control 5-3 12,67,2,False
+NCO4 Control 5-3 12,77,1,False
+NCO4 Control 5-3 15,88,7,False
+NCO4 Control 5-3 18,28,2,False
+NCO4 Control 5-3 18,37,6,False
+NCO4 Control 5-3 21,48,5,False
+NCO4 Control 5-3 21,56,4,False
+NCO4 Control 5-3 21,75,9,False
+NCO4 Control 5-3 21,76,7,False
+NCO4 Control 5-3 21,77,6,False
+NCO4 Control 5-3 22,76,8,False
+NCO4 Control 5-3 23,34,16,False
+NCO4 Control 5-3 23,35,10,False
+NCO4 Control 5-3 24,16,8,False
+NCO4 Control 5-3 25,46,0,False
+NCO4 Control 5-3 25,73,8,False
+NCO4 Control 5-3 25,85,5,False
+NCO4-Lithium-5-3 2,42,9,False
+NCO4-Lithium-5-3 3,15,12,False
+NCO4-Lithium-5-3 4,63,8,False
+NCO4-Lithium-5-3 5,33,6,False
+NCO4-Lithium-5-3 6,4,8,False
+NCO4-Lithium-5-3 6,6,18,False
+NCO4-Lithium-5-3 7,18,11,False
+NCO4-Lithium-5-3 7,28,10,False
+NCO4-Lithium-5-3 7,76,10,False
+NCO4-Lithium-5-3 11,29,9,False
+NCO4-Lithium-5-3 11,49,9,False
+NCO4-Lithium-5-3 11,60,0,False
+NCO4-Lithium-5-3 12,13,9,False
+NCO4-Lithium-5-3 12,50,3,False
+NCO4-Lithium-5-3 12,60,0,False
+NCO4-Lithium-5-3 14,16,11,False
+NCO4-Lithium-5-3 17,22,9,False
+NCO4-Lithium-5-3 18,62,6,False
+NCO4-Lithium-5-3 18,86,5,False
+NCO4-Lithium-5-3 22,74,8,False
+NCO4-Lithium-5-3 23,51,12,False
+NCO4-Lithium-5-3 23,52,8,False
+NCO4-Lithium-5-3 23,62,10,False
+NCO4-Lithium-5-3 24,14,7,False
+NCO4-Lithium-5-3 25,32,7,False
+NCO4-Lithium-5-3-28,4,5,False
+NCO4-Lithium-5-3-28,6,17,False
+NCO4-Lithium-5-3-28,28,5,False
+NCO4-Lithium-5-3-28,41,1,False
+NCO4-Lithium-5-3-28,47,7,False
+NCO4-Lithium-5-3-28,78,8,False
+NCO4-Lithium-5-3-29,5,3,False
+NCO4-Lithium-5-3-29,47,8,False
+NCO4-Lithium-5-3-30,14,2,False
+NCO4-Lithium-5-3-35,14,8,False
+NCO4-Lithium-5-3-35,87,8,False
+NCO4-Lithium-5-3-37,63,6,False
+NCO4-Lithium-5-3-39,32,11,False
+NCO4-Lithium-5-3-43,79,7,False
+NCO4-Lithium-5-3-44,29,14,False
+NCO4-Lithium-5-3-44,39,7,False
+NCO4-Lithium-5-3-44,74,5,False
+NCO4-Lithium-5-3-45,14,10,False
+NCO4-Lithium-5-3-45,16,6,False
+NCO4-Lithium-5-3-45,23,11,False
+NCO4-Lithium-5-3-47,68,5,False
+NCO4-Lithium-5-3-48,70,0,False
+NCO4-Lithium-5-3-49,73,8,False
+NCO4-Lithium-5-3-49,85,7,False
+NCO4-Lithium-5-3-49,86,10,False
+NCO4-Lithium-5-3-50,26,8,False
+NCO4-Lithium-5-3-50,87,17,False
+nCO4 Control 5-3 27,17,5,False
+nCO4 Control 5-3 27,44,7,False
+nCO4 Control 5-3 27,49,9,False
+nCO4 Control 5-3 28,86,5,False
+nCO4 Control 5-3 30,18,6,False
+nCO4 Control 5-3 30,85,6,False
+nCO4 Control 5-3 31,6,10,False
+nCO4 Control 5-3 32,5,13,False
+nCO4 Control 5-3 32,6,11,False
+nCO4 Control 5-3 35,53,10,False
+nCO4 Control 5-3 35,62,17,False
+nCO4 Control 5-3 35,63,16,False
+nCO4 Control 5-3 35,73,16,False
+nCO4 Control 5-3 36,29,0,False
+nCO4 Control 5-3 36,62,6,False
+nCO4 Control 5-3 36,73,9,False
+nCO4 Control 5-3 36,77,5,False
+nCO4 Control 5-3 36,86,8,False
+nCO4 Control 5-3 36,87,7,False
+nCO4 Control 5-3 38,33,7,False
+nCO4 Control 5-3 38,37,4,False
+nCO4 Control 5-3 39,63,7,False
+nCO4 Control 5-3 40,73,4,False
+nCO4 Control 5-3 40,85,6,False
+nCO4 Control 5-3 41,4,6,False
+nCO4 Control 5-3 41,22,10,False
+nCO4 Control 5-3 42,24,5,False
+nCO4 Control 5-3 42,35,5,False
+nCO4 Control 5-3 42,36,5,False
+nCO4 Control 5-3 43,62,7,False
+nCO4 Control 5-3 44,32,7,False
+nCO4 Control 5-3 44,42,8,False
+nCO4 Control 5-3 44,73,10,False
+nCO4 Control 5-3 44,85,8,False
+nCO4 Control 5-3 45,48,11,False
+nCO4 Control 5-3 45,72,8,False
+nCO4 Control 5-3 45,83,7,False
+nCO4 Control 5-3 46,29,7,False
+nCO4 Control 5-3 46,59,6,False
+nCO4 Control 5-3 46,67,5,False
+nCO4 Control 5-3 46,68,14,False
+nCO4 Control 5-3 46,77,14,False
+nCO4 Control 5-3 48,76,10,False
+nCO4 Control 5-3 49,64,9,False
+nCO4 Control 5-3 50,14,1,False
+nCO4 Control 5-3 50,33,6,False
+nCO4 Control 5-3 50,51,7,False
+nCO4 Control 5-3 50,57,4,False
+nCO4 Control 5-3 50,95,4,False
