@@ -15,10 +15,25 @@ while True:
         CSV_PATH="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/alex_data_csvs"
         break
 
-which_csvs = input().split(', ')
-dataset_prefix = '_'.join(input("What are the days: ").split(', '))
+all = False
+which_csvs = input("If you want all csvs write A: ").split(', ')
+# 'A' = all of them
+if 'A' in which_csvs:
+    print("You selected: ")
+    print(os.listdir(CSV_PATH))
+    all = True
+if not all:
+    dataset_prefix = '_'.join(input("What are the days?: ").split(', '))
+else:
+    dataset_prefix = "5-2_5-4_5-6_5-8_5-10_5-12_5-14_5-16_5-18"
 dataset_name = f'CC_{dataset_prefix}_{'J' if whose_csvs == "Jacob" else 'A'}'
-os.mkdir(f"{DATA_DEST_ROOT_PATH}/{dataset_name}")
+try:
+    os.mkdir(f"{DATA_DEST_ROOT_PATH}/{dataset_name}")
+except FileExistsError:
+    if len(os.listdir(f"{DATA_DEST_ROOT_PATH}/{dataset_name}")) == 0:
+        pass
+    else:
+        raise FileExistsError("There are contents to this directory")
 # csv headers: Image,Part,Count,Whitespace
 # format of all tiles:
 # AO5 Lithium 5-17 13 pt33.jpg
@@ -27,11 +42,14 @@ os.mkdir(f"{DATA_DEST_ROOT_PATH}/{dataset_name}")
 # eggs{Count}{Image} pt{Part}.jpg
 # send off to legacy script to create paritioned set
 
+# print(os.listdir(ALL_TILES))[:10]
+
 for csv in os.listdir(CSV_PATH):
-    if csv not in which_csvs:
+    if not all and csv not in which_csvs:
         continue
     df_csv = pd.read_csv(f"{CSV_PATH}/{csv}")
-    df_csv['Filename'] = f"eggs{df_csv["Count"]}count{df_csv["Image"]} pt{df_csv["Part"]}.jpg"
-    for filename in df_csv["Filename"]:
-        shutil.copy(f"{ALL_TILES}/{filename}", f"{DATA_DEST_ROOT_PATH}/{dataset_name}")
+    for index, row in df_csv.iterrows():
+        filename = f"eggs{row["Count"]}count{row["Image"]} pt{row["Part"]}.jpg"
+        src_name = f"{row["Image"]} pt{row["Part"]}.jpg"
+        shutil.copy(f"{ALL_TILES}/{src_name}", f"{DATA_DEST_ROOT_PATH}/{dataset_name}/{filename}")
 

@@ -14,7 +14,10 @@ import matplotlib.pyplot as plt
 import csv
 from scipy.optimize import curve_fit
 
-TESTING_SET="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/Winter 2017 2 21 C pops cap-sliced"
+TESTING_SETS=[
+    "/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/Winter 2017 2 21 C pops cap-sliced",
+    "/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-4-cap-sliced-Julie"
+]
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
@@ -25,6 +28,11 @@ MAX_EGGS = 12
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/ModelStatistics.csv"
 
+# ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2,54_MSE,54_RMSE,54_R2
+
+TO_WRITE = {'ModelPath': [], "TrainingSet": [], "Iteration": [],
+            "CD_MSE": [], "CD_RMSE": [], "CD_R2": [],
+            "54_MSE": [], "54_RMSE": [], "54_R2": []}
 
 TOP_MODEL_NAMES_AND_PATHS = {
     #'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
@@ -36,12 +44,15 @@ TOP_MODEL_NAMES_AND_PATHS = {
     # 'Alex_BW_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_BW_4-30_5-1_v0.0.h5',None),
     # 'Alex_BW_4-30_v0.0':(f'{BASE_DIR}/alex_BW_4-30_v0.0.h5',None),
     # 'Alex_BW_5-1_v0.0':(f'{BASE_DIR}/alex_BW_5-1_v0.0.h5',None)
-    'Alex_4-30_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5',None),
-    'Alex_4-30_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2S_v0.0.h5',None),
-    'Alex_4-30_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-2O_v0.0.h5',None),
-    'Alex_4-30_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-2S_v0.0.h5',None),
-    'Alex_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_5-1_5-2O_v0.0.h5',None),
-    'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
+    # 'Alex_4-30_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5',None),
+    # 'Alex_4-30_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2S_v0.0.h5',None),
+    # 'Alex_4-30_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-2O_v0.0.h5',None),
+    # 'Alex_4-30_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-2S_v0.0.h5',None),
+    # 'Alex_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_5-1_5-2O_v0.0.h5',None),
+    # 'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
+    # 'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
+    'Alex_CC_A_v0.0': (f'{BASE_DIR}/alex_CC_A_v0.0.h5',None),
+    'Jacob_CC_J_v0.0': (f'{BASE_DIR}/jacob_CC_J_v0.0.h5',None)
 }
 
 def predict_egg_count_NoZ(image_path):
@@ -115,7 +126,7 @@ def get_tile_preds_data_file(name, model, model2):
     mod2 = None
     if model2 != None:
         mod2 = tf.keras.models.load_model(model2)
-    csv_name = f'{name}_tile_counts_CD.csv'
+    csv_name = f'{name}_tile_counts_{'CD' if 'Winter 2017 2 21 C pops cap-sliced' in TESTING_SET else '54'}.csv'
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
@@ -136,7 +147,7 @@ def get_tile_preds_data_file(name, model, model2):
     return csv_name
 
 def get_actual_total(csv_path, name):
-    actual_csv_name = f'{name}_sums_CD_CSV.csv'
+    actual_csv_name = f'{name}_sums_{'CD' if 'Winter 2017 2 21 C pops cap-sliced' in TESTING_SET else '54'}_CSV.csv'
     # get all unique names => get the ones with the same names => get the actual counts => sum
     df = pd.read_csv(csv_path)
     root_image_names = np.array(df['RootImage'].unique())
@@ -171,6 +182,10 @@ def MSEs_get_class_counts(cap_csvs):
     
     return counts
 
+# to_write = {'ModelPath': "", "TrainingSet": "", 
+#             "CD_MSE": -1, "CD_RMSE": -1, "CD_R2": -1,
+#             "54_MSE": -1, "54_RMSE": -1, "54_R2": -1}
+
 def MSEs_metrics_and_graph(caps_csvs, name):
     df = pd.read_csv(caps_csvs)
 
@@ -183,52 +198,39 @@ def MSEs_metrics_and_graph(caps_csvs, name):
     mean_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean(x['BotSum']))
 
     r2_score_by_counts = df.groupby('HumanSum').apply(lambda x: r2_score(x['HumanSum'], x['BotSum']))
+
+    if "CD" in TESTING_SET:
+        TO_WRITE['CD_MSE'] = [total_mse]
+        TO_WRITE['CD_R2'] = [total_r2]
+        TO_WRITE['CD_RMSE'] = [np.sqrt(total_mse)]
+    else:
+        TO_WRITE['54_MSE'] = [total_mse]
+        TO_WRITE['54_R2'] = [total_r2]
+        TO_WRITE['54_RMSE'] = [np.sqrt(total_mse)]
     
-    # new_df = pd.DataFrame(new_row_data)
-    # res_csv = pd.read_csv(UPDATE_CSV)
-    # res_csv.
-    with open(f"{name}_metrics_CD.txt", "w") as file:
-        print(f'TOTAL MSE: {total_mse}\n', file=file)
-        print(f'TOTAL RMSE: {np.sqrt(total_mse)}\n', file=file)
-        print(f'TOTAL R2SCORE: {total_r2}\n', file=file)
+    with open(f"{name}_metrics_{'CD' if 'Winter 2017 2 21 C pops cap-sliced' in TESTING_SET else '54'}.txt", "w") as file:
         print("MSE FOR EACH COUNT: \n", file=file)
         print(mse_by_counts, file=file)
         print('\n', file=file)
-        # print("R2 SCORE FOR EACH COUNT: \n", file=file)
-        # print(r2_score_by_counts, file=file)
-        # print('\n', file=file)
         img_counts = MSEs_get_class_counts(caps_csvs)
         print(f"img counts {img_counts}", file=file)
         print('\n', file=file)
 
-    ## graphing mse & class
-
-    plt.figure(figsize=(10,6))
-    mse_by_counts.plot(kind='bar')
-    plt.title('Error in Egg Counts per Class')
-    plt.xlabel('Class/Correct Egg Count')
-    plt.ylabel('Error in Prediction (Mean Squared Error)')
-    plt.ylim(0, 100)
-    plt.xticks(rotation=0)
-    plt.axhline(y=total_mse, color='red', linestyle='--', label='Overall Error (MSE)')
-    plt.legend()
-    plt.tight_layout()
-    plt.plot()
-    plt.savefig(f"{name}_full_cap_CD_MSEs.png")
-
-def get_mse_table_and_plot_and_csvs(model, name):
-    print(f'Getting tiles for {name}')
-    tiles_csv_name = get_tile_preds_data_file(name, paths[0], None)
-    print(f'Getting sums for {name}')
-    sums_csv_name = get_actual_total(tiles_csv_name, name)
-    print(f'Getting metrics for {name}')
-    MSEs_metrics_and_graph(sums_csv_name, name)
-
 if __name__ == '__main__':
     for name, paths in TOP_MODEL_NAMES_AND_PATHS.items():
-        print(f'Getting tiles for {name}')
-        tiles_csv_name = get_tile_preds_data_file(name, paths[0], paths[1])
-        print(f'Getting sums for {name}')
-        sums_csv_name = get_actual_total(tiles_csv_name, name)
-        print(f'Getting metrics for {name}')
-        MSEs_metrics_and_graph(sums_csv_name, name)
+        for TESTING_SET in TESTING_SETS:
+            print(f'Getting tiles for {name}')
+            tiles_csv_name = get_tile_preds_data_file(name, paths[0], paths[1])
+            print(f'Getting sums for {name}')
+            sums_csv_name = get_actual_total(tiles_csv_name, name)
+            print(f'Getting metrics for {name}')
+            MSEs_metrics_and_graph(sums_csv_name, name)
+
+        # write results
+        TO_WRITE['ModelPath'] = [paths[0]]
+        TO_WRITE['TrainingSet'] = ['_'.join(paths[0].split('/')[-1].split('.h5')[0].split('_')[1:-1])]
+        TO_WRITE['Iteration'] = [paths[0].split('/')[-1].split('.h5')[0].split('_')[-1].split('.')[-1]]
+        new_df = pd.DataFrame.from_dict(TO_WRITE)
+        print(new_df)
+        new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=False)
+
