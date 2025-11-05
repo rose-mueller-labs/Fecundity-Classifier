@@ -9,7 +9,7 @@ def split_image(outpath, imgpath, imgid):
     height, width, _ = img.shape
     index = 1
     print(f"SPLITTING {imgid}")
-    imgname = imgid[0:imgid.find(".")]
+    imgname = imgid
     # Since not all image resolutions are evenly divisible by 75, center w/ indent:
     y_indent = int(height%75/2)
     x_indent = int(width%75/2)
@@ -42,4 +42,4 @@ def main(path): # changed argv into path
             split_image(outpath, imgpath, x)
     print("Finished!")
 
-main("/home/drosophila-lab/Documents/Fecundity/Lithium-Caps-Organization/data-development/data-cap") # to run, type: > python3 image_shredder.py [folder-path]
+# main("/home/drosophila-lab/Documents/Fecundity/Lithium-Caps-Organization/data-development/data-cap") # to run, type: > python3 image_shredder.py [folder-path]
