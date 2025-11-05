@@ -30,10 +30,6 @@ UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Test
 
 # ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2,54_MSE,54_RMSE,54_R2
 
-TO_WRITE = {'ModelPath': [], "TrainingSet": [], "Iteration": [],
-            "CD_MSE": [], "CD_RMSE": [], "CD_R2": [],
-            "54_MSE": [], "54_RMSE": [], "54_R2": []}
-
 TOP_MODEL_NAMES_AND_PATHS = {
     #'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
     #'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
@@ -52,6 +48,7 @@ TOP_MODEL_NAMES_AND_PATHS = {
     # 'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
     # 'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
     'Alex_CC_A_v0.0': (f'{BASE_DIR}/alex_CC_A_v0.0.h5',None),
+    'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
     'Jacob_CC_J_v0.0': (f'{BASE_DIR}/jacob_CC_J_v0.0.h5',None)
 }
 
@@ -218,6 +215,10 @@ def MSEs_metrics_and_graph(caps_csvs, name):
 
 if __name__ == '__main__':
     for name, paths in TOP_MODEL_NAMES_AND_PATHS.items():
+        TO_WRITE = {'ModelPath': [], "TrainingSet": [], "Iteration": [],
+            "CD_MSE": [], "CD_RMSE": [], "CD_R2": [],
+            "54_MSE": [], "54_RMSE": [], "54_R2": []}
+        
         for TESTING_SET in TESTING_SETS:
             print(f'Getting tiles for {name}')
             tiles_csv_name = get_tile_preds_data_file(name, paths[0], paths[1])
@@ -230,7 +231,20 @@ if __name__ == '__main__':
         TO_WRITE['ModelPath'] = [paths[0]]
         TO_WRITE['TrainingSet'] = ['_'.join(paths[0].split('/')[-1].split('.h5')[0].split('_')[1:-1])]
         TO_WRITE['Iteration'] = [paths[0].split('/')[-1].split('.h5')[0].split('_')[-1].split('.')[-1]]
+        
+        if not TO_WRITE['CD_MSE']:
+            TO_WRITE['CD_MSE'] = [-1]
+            TO_WRITE['CD_RMSE'] = [-1]
+            TO_WRITE['CD_R2'] = [-1]
+        if not TO_WRITE['54_MSE']:
+            TO_WRITE['54_MSE'] = [-1]
+            TO_WRITE['54_RMSE'] = [-1]
+            TO_WRITE['54_R2'] = [-1]
+        
         new_df = pd.DataFrame.from_dict(TO_WRITE)
         print(new_df)
-        new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=False)
 
+        if os.path.exists(UPDATE_CSV):
+            new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=False)
+        else:
+            new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=True)
