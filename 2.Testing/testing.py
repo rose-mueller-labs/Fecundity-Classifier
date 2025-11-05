@@ -26,7 +26,7 @@ BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 12
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
-UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/ModelStatistics.csv"
+UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/ModelStatistics_54.csv"
 
 # ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2,54_MSE,54_RMSE,54_R2
 

@@ -14,35 +14,36 @@ import matplotlib.pyplot as plt
 import csv
 from scipy.optimize import curve_fit
 
-CD_IMAGES=""
-SPLIT_CD_IMAGES=""
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = 12
+MAX_EGGS = 42
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/ModelStatistics.csv"
 
+UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/ModelStatistics_CD.csv"
+TESTING_SET="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/ALL_CD_CAPS-sliced"
+
 TOP_MODEL_NAMES_AND_PATHS = {
-    #'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
-    #'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
-    # 'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
-    # 'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
-    # 'Alex_5-2S_v0.0':(f'{BASE_DIR}/alex_5-2S_v0.0.h5',None),
-    # 'Alex_5-2O_v0.0':(f'{BASE_DIR}/alex_5-2O_v0.0.h5',None),
-    # 'Alex_BW_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_BW_4-30_5-1_v0.0.h5',None),
-    # 'Alex_BW_4-30_v0.0':(f'{BASE_DIR}/alex_BW_4-30_v0.0.h5',None),
-    # 'Alex_BW_5-1_v0.0':(f'{BASE_DIR}/alex_BW_5-1_v0.0.h5',None)
-    # 'Alex_4-30_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5',None),
-    # 'Alex_4-30_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2S_v0.0.h5',None),
-    # 'Alex_4-30_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-2O_v0.0.h5',None),
-    # 'Alex_4-30_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-2S_v0.0.h5',None),
-    # 'Alex_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_5-1_5-2O_v0.0.h5',None),
-    # 'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
-    # 'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
+    'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
+    'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
+    'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
+    'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
+    'Alex_5-2S_v0.0':(f'{BASE_DIR}/alex_5-2S_v0.0.h5',None),
+    'Alex_5-2O_v0.0':(f'{BASE_DIR}/alex_5-2O_v0.0.h5',None),
+    'Alex_BW_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_BW_4-30_5-1_v0.0.h5',None),
+    'Alex_BW_4-30_v0.0':(f'{BASE_DIR}/alex_BW_4-30_v0.0.h5',None),
+    'Alex_BW_5-1_v0.0':(f'{BASE_DIR}/alex_BW_5-1_v0.0.h5',None),
+    'Alex_4-30_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5',None),
+    'Alex_4-30_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_5-2S_v0.0.h5',None),
+    'Alex_4-30_5-2O_v0.0':(f'{BASE_DIR}/alex_4-30_5-2O_v0.0.h5',None),
+    'Alex_4-30_5-2S_v0.0':(f'{BASE_DIR}/alex_4-30_5-2S_v0.0.h5',None),
+    'Alex_5-1_5-2O_v0.0':(f'{BASE_DIR}/alex_5-1_5-2O_v0.0.h5',None),
+    'Alex_5-1_5-2S_v0.0':(f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5',None),
+    'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
     'Alex_CC_A_v0.0': (f'{BASE_DIR}/alex_CC_A_v0.0.h5',None),
     'Alex_CC_A_4-30_v0.0': (f'{BASE_DIR}/alex_CC_A_4-30_v0.0.h5',None),
     'Jacob_CC_J_v0.0': (f'{BASE_DIR}/jacob_CC_J_v0.0.h5',None)
@@ -70,24 +71,110 @@ def get_tile_preds(name, model, model2):
     
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['CD_RootImage', 'Part', 'Bot',])
+        writer.writerow(['CD_RootImage', 'Part', 'Bot', 'Sum'])
 
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['ImageName', 'RootImage', 'Bot', 'Human'])
         for img in os.listdir(f"{TESTING_SET}"):
-            if 'eggs' not in img or 'unsure' in img:
+            if 'eggs' not in img or 'nan' in img:
                 continue
-            label = int(img.split('eggs')[1].split('count')[0])
-            predicted_eggs = predict_egg_count_default(f"{TESTING_SET}/{img}", name, mod1, mod2)
-            root_image_a = img.split('count')[1]
-            root_image_b = root_image_a.split('pt')
-            root_image = root_image_b[0]
-            root_image = root_image.strip()
-            writer.writerow([img, root_image, predicted_eggs, label])
+            sum = img.split('eggs')[-1].split('count')[0]
+            root_img = img.split('count')[-1].split(" pt")[0]
+            predicted_eggs = int(predict_egg_count_default(f"{TESTING_SET}/{img}", name, mod1, mod2))
+            part = img.split("pt")[-1].split('.')[0]
+            writer.writerow([root_img, part, predicted_eggs, sum])
     return csv_name
 
-# make csv with sums of tile predictions and actual counts
 # loop thru CD_IMAGES 
+def get_sums(csv_path, name):
+    actual_csv_name = f'{name}_sums_COMPLETE_CD.csv'
+    # get all unique names => get the ones with the same names => get the actual counts => sum
+    df = pd.read_csv(csv_path)
+    root_image_names = np.array(df['CD_RootImage'].unique())
+    # print(root_image_names)
+    actual_counts = dict()
+    expected_counts = dict()
+    for cap_name in root_image_names:
+        actual_counts[cap_name] = 0
+        expected_counts[cap_name] = 0
+
+    for index, row in df.iterrows():
+        actual_counts[row['RootImage']] += row['Bot']
+        expected_counts[row['RootImage']] = row['Sum']
+    
+    with open(actual_csv_name, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['RootImage', 'BotSum', 'HumanSum'])
+        for root_img, actual in actual_counts.items():
+            expected = expected_counts[root_img]
+            writer.writerow([root_img, actual, expected])
+    return actual_csv_name
+
+def MSEs_get_class_counts(cap_csvs):
+    df = pd.read_csv(cap_csvs)
+    counts = dict()
+    for index, row in df.iterrows():
+        label = int(row['HumanSum'])
+        if label not in counts:
+            counts[label]=1
+        else:
+            counts[label]+=1
+    
+    return counts
+
+def MSEs_metrics_and_graph(caps_csvs, name):
+    df = pd.read_csv(caps_csvs)
+
+    total_mse = mean_squared_error(df['HumanSum'], df['BotSum'])
+    total_r2 = r2_score(df['HumanSum'], df['BotSum'])
+
+    mse_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean((x['HumanSum']-x['BotSum'])**2))
+    std_dev_by_counts = df.groupby('HumanSum').apply(lambda x: np.std(x['BotSum']))
+    var_by_counts = df.groupby('HumanSum').apply(lambda x: np.var(x['BotSum']))
+    mean_by_counts = df.groupby('HumanSum').apply(lambda x: np.mean(x['BotSum']))
+
+    r2_score_by_counts = df.groupby('HumanSum').apply(lambda x: r2_score(x['HumanSum'], x['BotSum']))
+
+    TO_WRITE['CD_MSE'] = [total_mse]
+    TO_WRITE['CD_R2'] = [total_r2]
+    TO_WRITE['CD_RMSE'] = [np.sqrt(total_mse)]
+    
+    with open(f"{name}_metrics_COMPLETE_CD.txt", "w") as file:
+        print("MSE FOR EACH COUNT: \n", file=file)
+        print(mse_by_counts, file=file)
+        print('\n', file=file)
+        img_counts = MSEs_get_class_counts(caps_csvs)
+        print(f"img counts {img_counts}", file=file)
+        print('\n', file=file)
 
 # do calculations and write to ModelStatistics.csv
+if __name__ == '__main__':
+    for name, paths in TOP_MODEL_NAMES_AND_PATHS.items():
+        TO_WRITE = {'ModelPath': [], "TrainingSet": [], "Iteration": [],
+            "CD_MSE": [], "CD_RMSE": [], "CD_R2": []
+            }
+        
+        print(f'Getting tiles for {name}')
+        tiles_csv_name = get_tile_preds(name, paths[0], paths[1])
+        print(f'Getting sums for {name}')
+        sums_csv_name = get_sums(tiles_csv_name, name)
+        print(f'Getting metrics for {name}')
+        MSEs_metrics_and_graph(sums_csv_name, name)
+
+        # write results
+        TO_WRITE['ModelPath'] = [paths[0]]
+        TO_WRITE['TrainingSet'] = ['_'.join(paths[0].split('/')[-1].split('.h5')[0].split('_')[1:-1])]
+        TO_WRITE['Iteration'] = [paths[0].split('/')[-1].split('.h5')[0].split('_')[-1].split('.')[-1]]
+        
+        if not TO_WRITE['CD_MSE']:
+            TO_WRITE['CD_MSE'] = [-1]
+            TO_WRITE['CD_RMSE'] = [-1]
+            TO_WRITE['CD_R2'] = [-1]
+        
+        new_df = pd.DataFrame.from_dict(TO_WRITE)
+        print(new_df)
+
+        if os.path.exists(UPDATE_CSV):
+            new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=False)
+        else:
+            new_df.to_csv(UPDATE_CSV, mode='a', index=False, header=True)
