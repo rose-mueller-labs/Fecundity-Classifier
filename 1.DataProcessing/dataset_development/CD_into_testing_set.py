@@ -24,13 +24,18 @@ except FileExistsError:
 # send off to legacy script to create paritioned set
 
 # print(os.listdir(ALL_TILES))[:10]
-
-for csv in os.listdir(CSV_PATH):
-    if not all and csv not in which_csvs:
-        continue
-    df_csv = pd.read_csv(f"{CSV_PATH}/{csv}")
-    for index, row in df_csv.iterrows():
-        filename = f"eggs{row["Count"]}count{row["ImageName"]}.jpg"
-        src_name = f"{row["ImageName"]}.jpg"
+notfound = []
+df_csv = pd.read_csv(CSV_PATH)
+for index, row in df_csv.iterrows():
+    filename = f"eggs{row["Count"]}count{row["ImageName"]}.jpg"
+    src_name = f"{row["ImageName"]}.png"
+    try:
         shutil.copy(f"{ALL_TILES}/{src_name}", f"{DATA_DEST_ROOT_PATH}/{dataset_name}/{filename}")
+    except FileNotFoundError:
+        notfound.append(src_name)
+
+with open("not_found.txt", 'w') as f:
+    f.write(', '.join(notfound))
+    f.write('\n')
+
 
