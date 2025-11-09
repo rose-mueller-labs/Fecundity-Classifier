@@ -28,7 +28,7 @@ UPDATE_CSV="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Test
 TESTING_SET="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/ALL_CD_CAPS-sliced"
 
 TOP_MODEL_NAMES_AND_PATHS = {
-    'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
+    # 'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
     'Alex_4-30_5-1_v0.0':(f'{BASE_DIR}/alex_4-30_5-1_v0.0.h5',None),
     'Alex_4-30_v0.0':(f'{BASE_DIR}/alex_4-30_v0.0.h5',None),
     'Alex_5-1_v0.0':(f'{BASE_DIR}/alex_5-1_v0.0.h5',None),
@@ -68,13 +68,10 @@ def get_tile_preds(name, model, model2):
         mod2 = tf.keras.models.load_model(model2)
     
     csv_name = f'{name}_tile_counts_CD_Complete.csv'
-    
-    with open(csv_name, "w", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['CD_RootImage', 'Part', 'Bot', 'Sum'])
 
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(['CD_RootImage', 'Part', 'Bot', 'Sum'])
         for img in os.listdir(f"{TESTING_SET}"):
             if 'eggs' not in img or 'nan' in img:
                 continue
@@ -99,12 +96,12 @@ def get_sums(csv_path, name):
         expected_counts[cap_name] = 0
 
     for index, row in df.iterrows():
-        actual_counts[row['RootImage']] += row['Bot']
-        expected_counts[row['RootImage']] = row['Sum']
+        actual_counts[row['CD_RootImage']] += row['Bot']
+        expected_counts[row['CD_RootImage']] = row['Sum']
     
     with open(actual_csv_name, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['RootImage', 'BotSum', 'HumanSum'])
+        writer.writerow(['CD_RootImage', 'BotSum', 'HumanSum'])
         for root_img, actual in actual_counts.items():
             expected = expected_counts[root_img]
             writer.writerow([root_img, actual, expected])
