@@ -10,7 +10,8 @@ DS_PATHS = {'4-30': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifi
             '5-2S': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-2-cap-800x800-sliced-Alex-supplemented',
             '5-2O': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/5-2-cap-800x800-sliced-Alex-supl-no-5-2-zeros',
             'CC_A': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/CC_5-2_5-4_5-6_5-8_5-10_5-12_5-14_5-16_5-18_A',
-            'CC_J': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/CC_5-2_5-4_5-6_5-8_5-10_5-12_5-14_5-16_5-18_J'
+            'CC_J': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/CC_5-2_5-4_5-6_5-8_5-10_5-12_5-14_5-16_5-18_J',
+            'CD': '/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/Winter 2017 2 21 C pops cap-sliced'
             }
 
 BW_THRESH = 150 ## change to grayscale
@@ -18,16 +19,16 @@ BW_THRESH = 150 ## change to grayscale
 multiple_sets = bool(int(input("Are there multiple sets in this dataset? If yes, type 1. Else, type 0: ")))
 # (source, dest)
 
-set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J. ").split(' ')
+set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD. ").split(' ')
 valid = bool(int(input(f"You inputted: {set_names}. Is this correct? Type 1 if yes. Type 0 if not: ")))
 if not valid:
-    set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O.   ").split(' ')
+    set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD.").split(' ')
 
-bw = bool(int(input('Regular: 0. Black and White: 1. Type: ')))
+bw = bool(int(input('Regular: 0. Grayscale: 1. Type: ')))
 if bw:
-    valid = bool(int(input('You selected black and white. Is this true (1 if yes 0 if no): ')))
+    valid = bool(int(input('You selected grayscale. Is this true (1 if yes 0 if no): ')))
     if valid:
-        destination_path = f'{ROOT_DEST_PATH}/BW_{'_'.join(set_names)}'
+        destination_path = f'{ROOT_DEST_PATH}/GS_{'_'.join(set_names)}'
         os.mkdir(destination_path)
     else:
         bw = False
@@ -41,6 +42,8 @@ print(f"Your training set will be located at: {destination_path}")
 print("Beginning transfer")
 for set in set_names:
     for file in os.listdir(DS_PATHS[set]):
+        if 'nan' in file or 'unsure' in file:
+            continue
         egg_cnt = file.split('eggs')[1].split('count')[0]
         # print(egg_cnt)
         try:
