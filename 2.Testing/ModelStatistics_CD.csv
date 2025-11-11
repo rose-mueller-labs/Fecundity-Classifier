@@ -1,5 +1,5 @@
 ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2
-fecundity_model_mo_data_v1.h5,0,199.77736995317048,14.134262271274382,0.6409804606039298
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/fecundity_model_mo_data_v1.h5,0,199.77736995317048,14.134262271274382,0.6409804606039298
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_5-1_v0.0.h5,4-30_5-1,0,337.8927983799519,18.381860579929114,0.39277348146060953
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_v0.0.h5,4-30,0,880.5854955068978,29.674660832213362,-0.5824985536142275
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_5-1_v0.0.h5,5-1,0,314.3235033540058,17.729170971988673,0.4351298176466789
@@ -10,3 +10,9 @@ fecundity_model_mo_data_v1.h5,0,199.77736995317048,14.134262271274382,0.64098046
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_BW_5-1_v0.0.h5,BW_5-1,0,2897.63080622706,53.829646164795285,-4.207326924142405
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_5-1_5-2O_v0.0.h5,4-30_5-1_5-2O,0,237.6153651436527,15.41477749251194,0.5729818699320135
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_5-1_5-2S_v0.0.h5,4-30_5-1_5-2S,0,368.9312745222124,19.207583776264322,0.33699429380405777
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_5-2O_v0.0.h5,4-30_5-2O,0,337.16010631565626,18.36192000624271,0.394090201004491
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_4-30_5-2S_v0.0.h5,4-30_5-2S,0,609.1837742057967,24.681648530959123,-0.0947630258331662
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_5-1_5-2O_v0.0.h5,5-1_5-2O,0,342.2600936590305,18.500272799584078,0.38492502325000755
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_5-1_5-2S_v0.0.h5,5-1_5-2S,0,312.1279584862676,17.66714347273683,0.43907542723861404
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_CC_A_4-30_v0.0.h5,CC_A_4-30,0,326.17681306163774,18.060365806418144,0.41382825685152713
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_CC_A_v0.0.h5,CC_A,0,65304.10479686116,255.5466783131042,-116.35788508146645
