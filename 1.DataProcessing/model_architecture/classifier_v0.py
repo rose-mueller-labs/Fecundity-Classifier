@@ -8,18 +8,12 @@ import csv
 import time
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-## TO DO
-# - remove data augmentation
-# - add k stratified
-##
-
 # constants
-
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
-MAX_EGGS = int(input("MAX EGGS: "))
+MAX_EGGS = 42
 N_BINS = 10
 
 # load and preprocess ** might need to fix this st all classes are balanced, lots of 0s atm
@@ -47,76 +41,89 @@ def create_weighted_mse(class_weight_dict):
     return weighted_mse
 
 # load 
-data_dir = input("Paste partioned data directory path here: ")
-which_person = input("'jacob' or 'alex': ")
-iteration = int(input("Which iteration is this: "))
-model_name = f"{which_person}_{data_dir.split('/')[-1]}_v0.{iteration}.h5"
-X, y = load_data(data_dir)
+BASE_D="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/DATASETS"
+data_dirs = { # testing = ~16-20 hrs (1 day)
+    f"{BASE_D}/4-30_5-1_5-2O_CC_A": "alex",
+    f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J": "jalex",
+    f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J_CD": "jalex",
+    f"{BASE_D}/4-30_5-1_CC_A": "alex",
+    f"{BASE_D}/4-30_5-1_CC_A_CC_J": "jalex",
+    f"{BASE_D}/4-30_CD_5-1_CC_A": "alex",
+    f"{BASE_D}/5-1_5-2S_CC_A": "alex",
+    f"{BASE_D}/GS_4-30_5-1_5-2O_CC_A": "alex" # rename after model is created
+}
+for data_dir, person in data_dirs.items():
+    # data_dir = input("Paste partioned data directory path here: ")
+    # which_person = input("'jacob' or 'alex': ")
+    which_person = person
+    iteration = 0 # int(input("Which iteration is this: "))
+    model_name = f"{which_person}_{data_dir.split('/')[-1]}_v0.{iteration}.h5"
+    X, y = load_data(data_dir)
 
-# normalize 
-X = X.astype('float32') / 255.0
+    # normalize 
+    X = X.astype('float32') / 255.0
 
-# split 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
+    # split 
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
 
-# create 
-model = models.Sequential([
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.Flatten(),
-    layers.Dense(64, activation='relu'),
-    layers.Dense(MAX_EGGS + 1, activation='softmax')  # +1 to include 0 eggs
-])
+    # create 
+    model = models.Sequential([
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(MAX_EGGS + 1, activation='softmax')  # +1 to include 0 eggs
+    ])
 
-# compile 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+    # compile 
+    model.compile(optimizer='adam',
+                loss='sparse_categorical_crossentropy',
+                metrics=['accuracy'])
 
-# data aug
-datagen = ImageDataGenerator(
-    rotation_range=20,
-    width_shift_range=0.1,
-    height_shift_range=0.1,
-    horizontal_flip=True,
-    vertical_flip=True
-)
+    # data aug
+    datagen = ImageDataGenerator(
+        rotation_range=20,
+        width_shift_range=0.1,
+        height_shift_range=0.1,
+        horizontal_flip=True,
+        vertical_flip=True
+    )
 
-# train 
-history = model.fit(
-    datagen.flow(X_train, y_train, batch_size=BATCH_SIZE),
-    steps_per_epoch=len(X_train) // BATCH_SIZE,
-    epochs=EPOCHS,
-    validation_data=(X_test, y_test)
-)
+    # train 
+    history = model.fit(
+        datagen.flow(X_train, y_train, batch_size=BATCH_SIZE),
+        steps_per_epoch=len(X_train) // BATCH_SIZE,
+        epochs=EPOCHS,
+        validation_data=(X_test, y_test)
+    )
 
-y_pred_cls = np.argmax(model.predict(X_test), axis=1)
-test_mse = mean_squared_error(y_test, y_pred_cls)
-test_mae = mean_absolute_error(y_test, y_pred_cls)
-test_r2 = r2_score(y_test, y_pred_cls)
+    y_pred_cls = np.argmax(model.predict(X_test), axis=1)
+    test_mse = mean_squared_error(y_test, y_pred_cls)
+    test_mae = mean_absolute_error(y_test, y_pred_cls)
+    test_r2 = r2_score(y_test, y_pred_cls)
 
-# Create bins for evaluation
-bins = np.array(list(range(MAX_EGGS)))
-bin_indices = np.digitize(y_test, bins)
+    # Create bins for evaluation
+    bins = np.array(list(range(MAX_EGGS)))
+    bin_indices = np.digitize(y_test, bins)
 
-# eval the model
-test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
-with open (f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/model_validation_results/EVAL_{model_name}.txt', 'w') as file:
-    file.write(f'test accuracy: {test_acc}\n\n')
-    file.write(f'test loss: {test_loss}\n\n')
+    # eval the model
+    test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
+    with open (f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/model_validation_results/EVAL_{model_name}.txt', 'w') as file:
+        file.write(f'test accuracy: {test_acc}\n\n')
+        file.write(f'test loss: {test_loss}\n\n')
 
-    file.write(f"Overall MSE: {test_mse:.4f}\n")
-    file.write(f"Overall MAE: {test_mae:.4f}\n")
-    file.write(f"R² Score: {test_r2:.4f}\n\n")
-   
-    for bin_idx in range(1, len(bins)):
-        mask = bin_indices == bin_idx
-        if np.any(mask):
-            bin_mse = mean_squared_error(y_test[mask], y_pred_cls[mask])
-            file.write(f"Bin {bins[bin_idx-1]}-{bins[bin_idx]} MSE: {bin_mse:.4f}\n")
+        file.write(f"Overall MSE: {test_mse:.4f}\n")
+        file.write(f"Overall MAE: {test_mae:.4f}\n")
+        file.write(f"R² Score: {test_r2:.4f}\n\n")
+    
+        for bin_idx in range(1, len(bins)):
+            mask = bin_indices == bin_idx
+            if np.any(mask):
+                bin_mse = mean_squared_error(y_test[mask], y_pred_cls[mask])
+                file.write(f"Bin {bins[bin_idx-1]}-{bins[bin_idx]} MSE: {bin_mse:.4f}\n")
 
-# save
-model.save(f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/{model_name}')
+    # save
+    model.save(f'/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/{model_name}')
