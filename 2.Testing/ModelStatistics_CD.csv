@@ -16,3 +16,4 @@ ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_5-1_5-2S_v0.0.h5,5-1_5-2S,0,312.1279584862676,17.66714347273683,0.43907542723861404
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_CC_A_4-30_v0.0.h5,CC_A_4-30,0,326.17681306163774,18.060365806418144,0.41382825685152713
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_CC_A_v0.0.h5,CC_A,0,65304.10479686116,255.5466783131042,-116.35788508146645
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/jacob_CC_J_v0.0.h5,CC_J,0,5968.5687887609165,77.25651292131245,-9.726103851987855
