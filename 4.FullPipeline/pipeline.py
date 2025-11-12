@@ -17,13 +17,36 @@ from datetime import datetime
 from image_shredder import main
 import os
 import os.path
+import cv2
 
 # Put set name here
 set_name="SecondBigCap"
+half = True
+if half:
+    try:
+        os.mkdir(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half")
+    except FileExistsError:
+        pass
+if half:
+    for img in os.listdir(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}"):
+        full_path = f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}/{img}"
+        im = cv2.imread(full_path)
+        w, h, rgb = im.shape
+        cv2.imwrite(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half/{img}", cv2.resize(im, (h//2, w//2)))
 
 # Splits only if the setname-sliced does not already exist
-if not os.path.isdir(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-sliced"):
-    main(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}")
+if half:
+    if not os.path.isdir(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half-sliced"):
+        main(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half")
+else:
+    if not os.path.isdir(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-sliced"):
+        main(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}")
+
+if half:
+    TESTING_SET=f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half-sliced"
+else:
+    TESTING_SET=f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-sliced"
+
 
 def print_time():
     now = datetime.now()
@@ -37,8 +60,6 @@ BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
 BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
-
-TESTING_SET=f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-sliced"
 
 TOP_MODEL_NAMES_AND_PATHS = {
     'Alex_FecundityModelMoDataV1': (f'{BASE_DIR}/fecundity_model_mo_data_v1.h5', None),
