@@ -55,7 +55,7 @@ TOP_MODEL_NAMES_AND_PATHS = {
     'JAlex_4-30_5-1_5-2S_CC_A_CC_J_v0.0': (f'{BASE_DIR}/jalex_4-30_5-1_5-2S_CC_A_CC_J_v0.0.h5', None),
     'JAlex_4-30_5-1_5-2S_CC_A_CC_J_CD_v0.0': (f'{BASE_DIR}/jalex_4-30_5-1_5-2S_CC_A_CC_J_CD_v0.0.h5', None),
     'JAlex_4-30_5-1_CC_A_CC_J_v0.0': (f'{BASE_DIR}/jalex_4-30_5-1_CC_A_CC_J_v0.0.h5', None),
-    'Alex_GS_4-30_5-1_5-2O_CC_A_v0.0': (f'{BASE_DIR}/alex_GS_4-30_5-1_5-2O_CC_A_v0.0.h5', None)
+    'Alex_GS_4-30_5-1_5-2O_CC_A_v0.0': (f'{BASE_DIR}/jalex_GS_4-30_5-1_5-2O_CC_A_v0.0.h5', None)
 }
 
 def predict_egg_count_NoZ(image_path):

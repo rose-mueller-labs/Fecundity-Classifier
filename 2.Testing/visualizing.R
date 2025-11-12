@@ -1,9 +1,15 @@
 theirs <- read_excel("Downloads/12864_2018_5118_MOESM4_ESM.xlsx")
 
 setwd("~/Documents/Fecundity/Fecundity-Classifier/2.Testing")
-x <- read.csv("~/Documents/Fecundity/Fecundity-Classifier/2.Testing/Alex_FecundityModelMoDataV1_sums_COMPLETE_CD.csv")
+x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_FecundityModelMoDataV1_sums_COMPLETE_CD.csv")
+x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/Alex_4-30_5-1_CC_A_v0.0_sums_COMPLETE_CD.csv")
 x$dif <- x$BotSum - x$HumanSum
 x$absDif <- abs(x$dif)
+
+cor(x$BotSum, x$HumanSum)
+cor(x$BotSum[x$dif < 30], x$HumanSum[x$dif < 30])
+
+mean(x$BotSum - x$HumanSum)
 
 plot(x$BotSum, x$HumanSum)
 
@@ -94,10 +100,6 @@ car::Anova(lmer(data = test[test$interval == "6",],
 summary(lmer(data = test[test$interval == "6",], 
              HumanSum ~ age + sel + (1 | repSel)))
 
-cor(x$BotSum, x$HumanSum)
-cor(x$BotSum[x$dif < 30], x$HumanSum[x$dif < 30])
-
-mean(x$BotSum - x$HumanSum)
 
 lm(data = x[x$absDif < 100,], BotSum ~ CorD)
 summary(lm(data = x[x$absDif < 100,], BotSum ~ CorD))
