@@ -2,3 +2,5 @@ DATA
 .venv
 1.DataProcessing/DATASETS
 1.DataProcessing/model_architecture/models
+2.Testing/.Rhistory
+4.FullPipeline/__pycache__

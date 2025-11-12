@@ -19,10 +19,10 @@ BW_THRESH = 150 ## change to grayscale
 multiple_sets = bool(int(input("Are there multiple sets in this dataset? If yes, type 1. Else, type 0: ")))
 # (source, dest)
 
-set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD. ").split(' ')
+set_names = input("List the names of the subset(s) delimited with a comma and space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD. ").split(', ')
 valid = bool(int(input(f"You inputted: {set_names}. Is this correct? Type 1 if yes. Type 0 if not: ")))
 if not valid:
-    set_names = input("List the names of the subset(s) delimited with a space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD.").split(' ')
+    set_names = input("List the names of the subset(s) delimited with a comma and space. Valid names: 4-30, 5-1, 5-2S, 5-2O, CC_A, CC_J, CD.").split(', ')
 
 bw = bool(int(input('Regular: 0. Grayscale: 1. Type: ')))
 if bw:
@@ -42,6 +42,8 @@ print(f"Your training set will be located at: {destination_path}")
 print("Beginning transfer")
 for set in set_names:
     for file in os.listdir(DS_PATHS[set]):
+        if 'eggs' not in file:
+            continue
         if 'nan' in file or 'unsure' in file:
             continue
         egg_cnt = file.split('eggs')[1].split('count')[0]
@@ -61,7 +63,5 @@ for set in set_names:
             shutil.copy(f'{DS_PATHS[set]}/{file}', f'{destination_path}/{egg_cnt}/')
             if bw:
                 img = Image.open(f'{destination_path}/{egg_cnt}/{file}') # open colour image
-                thresh = BW_THRESH
-                fn = lambda x : 255 if x > thresh else 0
-                r = img.convert('L').point(fn, mode='1')
+                r = img.convert('L')
                 r.save(f'{destination_path}/{egg_cnt}/{file}')

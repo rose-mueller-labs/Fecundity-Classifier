@@ -2,6 +2,7 @@ import os
 import shutil
 import pandas as pd
 
+
 ALL_TILES="/home/drosophila-lab/Documents/All CD Caps"
 CSV_PATH = "/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/CD_Image_to_Count.csv"
 DATA_DEST_ROOT_PATH="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA"
