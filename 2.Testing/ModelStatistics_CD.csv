@@ -23,3 +23,5 @@ ModelPath,TrainingSet,Iteration,CD_MSE,CD_RMSE,CD_R2
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/alex_5-1_5-2S_CC_A_v0.0.h5,5-1_5-2S_CC_A,0,227.03012276926972,15.067518799366727,0.5920045892847488
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/jalex_4-30_5-1_5-2S_CC_A_CC_J_v0.0.h5,4-30_5-1_5-2S_CC_A_CC_J,0,229.2271864320972,15.140250540598633,0.5880562502689881
 /home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/jalex_4-30_5-1_5-2S_CC_A_CC_J_CD_v0.0.h5,4-30_5-1_5-2S_CC_A_CC_J_CD,0,206.65282875585368,14.375424472197462,0.6286245863972837
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/jalex_4-30_5-1_CC_A_CC_J_v0.0.h5,4-30_5-1_CC_A_CC_J,0,237.0750537906594,15.397241759180746,0.5739528624579817
+/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models/jalex_GS_4-30_5-1_5-2O_CC_A_v0.0.h5,GS_4-30_5-1_5-2O_CC_A,0,44660.4195671434,211.33011987680175,-79.25915681035126

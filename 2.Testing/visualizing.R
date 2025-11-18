@@ -1,8 +1,10 @@
 theirs <- read_excel("Downloads/12864_2018_5118_MOESM4_ESM.xlsx")
 
 setwd("~/Documents/Fecundity/Fecundity-Classifier/2.Testing")
-x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_FecundityModelMoDataV1_sums_COMPLETE_CD.csv")
-x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/Alex_4-30_5-1_CC_A_v0.0_sums_COMPLETE_CD.csv")
+# x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_FecundityModelMoDataV1_sums_COMPLETE_CD.csv")
+# x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/Alex_4-30_5-1_CC_A_v0.0_sums_COMPLETE_CD.csv")
+# x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_lithium_5-4_results/Alex_5-1_5-2S_v0.0_sums__lith54_CSV.csv")
+x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_lithium_5-4_results/Alex_5-1_5-2S_v0.0_tile_counts_lith.csv")
 x$dif <- x$BotSum - x$HumanSum
 x$absDif <- abs(x$dif)
 
@@ -21,11 +23,11 @@ x$sel <- 1
 x$rep <- 1
 x$month <- 1
 x$day <- 1
-for (i in 1:7901) {
-  x$sel[i] <- strsplit(strsplit(x$CD_RootImage[i], " ")[[1]][3], "")[[1]][1]
-  x$rep[i] <- as.integer(strsplit(strsplit(x$CD_RootImage[i], " ")[[1]][3], "")[[1]][2])
-  x$month[i] <- as.integer(strsplit(x$CD_RootImage[i], " ")[[1]][1])
-  x$day[i] <- as.integer(strsplit(x$CD_RootImage[i], " ")[[1]][2])
+for (i in 1:length(x$RootImage)) {
+  x$sel[i] <- strsplit(strsplit(x$RootImage[i], " ")[[1]][3], "")[[1]][1]
+  x$rep[i] <- as.integer(strsplit(strsplit(x$RootImage[i], " ")[[1]][3], "")[[1]][2])
+  x$month[i] <- as.integer(strsplit(x$RootImage[i], " ")[[1]][1])
+  x$day[i] <- as.integer(strsplit(x$RootImage[i], " ")[[1]][2])
 }
 x$age <- (x$month - 2) * 28 + x$day
 x$age <- x$age - as.integer(x$rep) - 5
@@ -115,3 +117,4 @@ ggplot(silly, mapping = aes(dif, n)) +
   theme_light() +
   geom_point() +
   xlim(-55, 150)
+
