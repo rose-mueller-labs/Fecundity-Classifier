@@ -32,7 +32,7 @@ if half:
         full_path = f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}/{img}"
         im = cv2.imread(full_path)
         w, h, rgb = im.shape
-        cv2.imwrite(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half/{img}", cv2.resize(im, ((3*h)//2, (3*w)//2)))
+        cv2.imwrite(f"/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/DATA/{set_name}-half/{img}", cv2.resize(im, ((h*6)//10, (w*6)//10)))
 
 # Splits only if the setname-sliced does not already exist
 if half:
