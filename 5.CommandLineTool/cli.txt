@@ -1,0 +1,11 @@
+1. --H for Help
+--n which counter's model (name)
+--D to put directory where data is located
+--C cluster model or not
+
+default model: 
+
+1. Split the input image into circles
+2. For each circle, make directory to contain tiles
+3. Run predictions on each tile and put the circle and its egg count into a CSV
+4. Return CSV
