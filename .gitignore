@@ -6,3 +6,5 @@ DATA
 4.FullPipeline/__pycache__
 4.FullPipeline/corrina_experiment/image_shredder.py
 4.FullPipeline/corrina_experiment/images
+*.RData
+*.Rhistory
