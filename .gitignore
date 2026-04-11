@@ -8,3 +8,4 @@ DATA
 4.FullPipeline/corrina_experiment/images
 *.RData
 *.Rhistory
+__pycache__
