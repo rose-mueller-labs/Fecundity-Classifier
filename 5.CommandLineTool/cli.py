@@ -10,18 +10,43 @@ import csv
 from datetime import datetime
 from image_shredder import main as shred
 
+
+# TODO:
+#Note: a thing we should do is make it so the tiles can be chosen to be saved for 
+# future use and a tile directory can be loaded instead
+
+#Note2: also needs to account for various common image formats or have it specified in CLI 
+# (better to detect)
+
+#Note3: be able to choose name for final file not just output dir or make name suitable generic
+#something akin to "individual tiles" "full picture count"
+#the sums don't work - assuming it is supposed to be for one full cap
+#this is because it is not idiot proofed and if someone is dumb it causes issues
+#the warnings do need to go if they truly don't matter, if this is to be a tool for even just this lab
+#and not outside the lab, imagine the telephone as fear
+
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
 BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
-BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
+# BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
+
+BASE_DIR="/Volumes/Crucial X9/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 
 # add models here as needed
+# MODELS = {
+#     'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None),
+#     'DEFAULT_MODEL': (f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5', None)
+# }
+
 MODELS = {
-    'DEFAULT_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None),
-    'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5', None)
+    'DEFAULT_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5', None),
+    'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None)
 }
 
 DEFAULT_MODEL = "DEFAULT_MODEL"
@@ -30,15 +55,40 @@ DEFAULT_MODEL = "DEFAULT_MODEL"
 def parse_args():
     parser = argparse.ArgumentParser(
         prog="cli.py",
-        description="Count Drosophila eggs in petri dish images."
+        description=(
+            "Count our lab images of Drosophila eggs in petri dish images.\n\n"
+            "Workflow:\n"
+            "  1. Provide a directory of cap images via --D.\n"
+            "  2. We then auto-sliced the caps into tiles (saved to <DIRECTORY>-sliced) if not already pre-sliced in the directory given.\n"
+            "  3. A model runs inference on each tile and sums the predictions per image which are then saved into 2 CSVs: one with per-tile counts, one with per-image sums.\n"
+            "Examples:\n"
+            "  python cli.py --D /data/<NAME>\n"
+            "  python cli.py --D /data/<NAME> --n CLUSTERING_MODEL\n"
+            "  python cli.py --D /data/<NAME> --C"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument("--n", dest="model_name", default=DEFAULT_MODEL, metavar="MODEL_NAME",
-        help=f"Model name/key to use for counting (default: {DEFAULT_MODEL}). "
-             f"Available: {list(DEFAULT_MODEL.keys())}")
+        help=(
+            f"Model name/key to use for inference (default: {DEFAULT_MODEL}). "
+            f"Available: {list(MODELS.keys())}. "
+            "Ignored if --C is set."
+        ))
     parser.add_argument("--D", dest="data_dir", required=True, metavar="DIRECTORY",
-        help="Path to directory containing caps images (NOT THE FULL GRID).")
+        help=(
+            "Path to directory containing cap images (NOT the full grid image). "
+            "Images will be auto-sliced into tiles if a '<DIRECTORY>-sliced' "
+            "folder does not already exist."
+        ))
     parser.add_argument("--C", dest="cluster", action="store_true", default=False,
-        help="Use CLUSTERING_MODEL for inference instead of the selected model (default: False)")
+        help=(
+            "Override --n and use CLUSTERING_MODEL for inference instead "
+            "(default: False)."
+        ))
+    parser.add_argument("--o", dest="output_dir", default=".", metavar="DIRECTORY",
+        help="Directory to save CSV output files to (default: current directory).")
+    parser.add_argument("--blah", action="store_true", default=False,
+        help="blah")
     return parser.parse_args()
 
 def print_time():
@@ -57,26 +107,37 @@ def predict_egg_count_default(image_path, name, model, model2=None):
 
     return egg_count
 
-def get_tile_preds(name, model, model2, set_name, TESTING_SET):
+def get_tile_preds(name, model, model2, set_name, TESTING_SET, output_dir):
+    print(f'Predicting with {model}...')
     mod1 = tf.keras.models.load_model(model)
     mod2 = None
     if model2 != None:
         mod2 = tf.keras.models.load_model(model2)
 
-    csv_name = f'{set_name}_{name}_tile_counts_cage_testing.csv'
+    csv_name = os.path.join(output_dir, f'{set_name}_{name}_tile_counts.csv')
 
     with open(csv_name, "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['ImageName', 'Part', 'Bot'])
         for img in os.listdir(f"{TESTING_SET}"):
-            root_image = img.split("JPG")[0].split(".")[0]
+            root_image = img.split("pt")[0]
+            # print(img)
+            if "jpg" in root_image:
+                root_image = root_image.split("jpg")[0][:-1]
+            elif "png" in root_image:
+                root_image = root_image.split("png")[0][:-1]
+            elif 'JPG':
+                root_image = root_image.split("JPG")[0][:-1]
+            elif 'jpeg':
+                root_image = root_image.split("jpeg")[0][:-1]
+            # print(root_image)
             predicted_eggs = int(predict_egg_count_default(f"{TESTING_SET}/{img}", name, mod1, mod2))
             part = img.split("pt")[-1].split('.')[0]
             writer.writerow([root_image, part, predicted_eggs])
     return csv_name
 
-def get_sums(csv_path, name, set_name):
-    actual_csv_name = f'{set_name}_{name}_sums_cage_testing.csv'
+def get_sums(csv_path, name, set_name, output_dir):
+    actual_csv_name = os.path.join(output_dir, f'{set_name}_{name}_sums.csv')
 
     df = pd.read_csv(csv_path)
     root_image_names = np.array(df['ImageName'].unique())
@@ -108,7 +169,9 @@ if __name__ == '__main__':
         print(f"Model '{name}' not found. Available: {list(MODELS.keys())}")
         exit(1)
 
-    set_name = os.path.basename(args.data_dir.rstrip("/\\")) # derive set_name from directory's name
+    os.makedirs(args.output_dir, exist_ok=True) # only if it don't exist
+
+    set_name = os.path.basename(args.data_dir.rstrip("/\\"))
 
     # slice images if not already done --> paths now from args.data_dir
     TESTING_SET = f"{args.data_dir}-sliced"
@@ -119,8 +182,8 @@ if __name__ == '__main__':
 
     print(f'Getting tiles for {name}')
     print_time()
-    tiles_csv_name = get_tile_preds(name, paths[0], paths[1], set_name, TESTING_SET)
+    tiles_csv_name = get_tile_preds(name, paths[0], paths[1], set_name, TESTING_SET, args.output_dir)
     print(f'Getting sums for {name}')
     print_time()
-    sums_csv_name = get_sums(tiles_csv_name, name, set_name)
+    sums_csv_name = get_sums(tiles_csv_name, name, set_name, args.output_dir)
     print(f'Done. Results saved to: {sums_csv_name}')
