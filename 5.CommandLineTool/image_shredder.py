@@ -9,6 +9,8 @@ import sys
 def split_image(outpath, imgpath, imgid):
     img = cv.imread(imgpath, 1)
     height, width, _ = img.shape
+    if height < 80:
+        raise ValueError
     index = 1
     print(f"SPLITTING {imgid}")
     imgname = imgid

@@ -11,21 +11,6 @@ from datetime import datetime
 from image_shredder import main as shred
 
 
-# TODO:
-#Note: a thing we should do is make it so the tiles can be chosen to be saved for 
-# future use and a tile directory can be loaded instead
-
-#Note2: also needs to account for various common image formats or have it specified in CLI 
-# (better to detect)
-
-#Note3: be able to choose name for final file not just output dir or make name suitable generic
-#something akin to "individual tiles" "full picture count"
-#the sums don't work - assuming it is supposed to be for one full cap
-#this is because it is not idiot proofed and if someone is dumb it causes issues
-#the warnings do need to go if they truly don't matter, if this is to be a tool for even just this lab
-#and not outside the lab, imagine the telephone as fear
-
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # constants
@@ -34,20 +19,20 @@ CHANNELS = 3
 BATCH_SIZE = 32
 EPOCHS = 50
 MAX_EGGS = 42
-# BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
+BASE_DIR="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 
-BASE_DIR="/Volumes/Crucial X9/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
+# BASE_DIR="/Volumes/Crucial X9/Fecundity-Classifier/1.DataProcessing/model_architecture/models"
 
 # add models here as needed
-# MODELS = {
-#     'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None),
-#     'DEFAULT_MODEL': (f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5', None)
-# }
-
 MODELS = {
-    'DEFAULT_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5', None),
-    'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None)
+    'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None),
+    'DEFAULT_MODEL': (f'{BASE_DIR}/alex_5-1_5-2S_v0.0.h5', None)
 }
+
+# MODELS = {
+#     'DEFAULT_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_5-2O_v0.0.h5', None),
+#     'CLUSTERING_MODEL': (f'{BASE_DIR}/alex_4-30_5-1_CC_A_v0.0.h5', None)
+# }
 
 DEFAULT_MODEL = "DEFAULT_MODEL"
 
@@ -82,13 +67,16 @@ def parse_args():
         ))
     parser.add_argument("--C", dest="cluster", action="store_true", default=False,
         help=(
-            "Override --n and use CLUSTERING_MODEL for inference instead "
-            "(default: False)."
+            "Select this if you would like to use the clustering model (default: use non-cluster model)."
         ))
-    parser.add_argument("--o", dest="output_dir", default=".", metavar="DIRECTORY",
+    parser.add_argument("--o", dest="output_dir", default=".",
         help="Directory to save CSV output files to (default: current directory).")
     parser.add_argument("--blah", action="store_true", default=False,
         help="blah")
+    parser.add_argument("--T", dest="del_tiles", action="store_false", default=True,
+        help="Select this if you would like to keep the tiles count output CSV (default: delete the CSV).")
+    parser.add_argument("--t", dest="is_tiles", action="store_true", default=False,
+        help="Determines if the data directory provided contains tiles or non-tile cap images. Indicate --t if the data directory contains tiles.")
     return parser.parse_args()
 
 def print_time():
@@ -154,6 +142,8 @@ def get_sums(csv_path, name, set_name, output_dir):
         writer.writerow(['ImageName', 'BotSum'])
         for root_img, actual in actual_counts.items():
             writer.writerow([root_img, actual])
+    if args.del_tiles:
+        os.remove(csv_path)
     return actual_csv_name
 
 if __name__ == '__main__':
@@ -175,8 +165,14 @@ if __name__ == '__main__':
 
     # slice images if not already done --> paths now from args.data_dir
     TESTING_SET = f"{args.data_dir}-sliced"
-    if not os.path.isdir(TESTING_SET):
-        shred(args.data_dir)
+    if not os.path.isdir(TESTING_SET) and not args.is_tiles:
+        try:
+            shred(args.data_dir)
+        except ValueError:
+            print("ERROR: Tiles have been given instead of cap images. If you meant to give tiles, indicate that with the '--t' option.")
+            exit()
+    elif args.is_tiles:
+        TESTING_SET = args.data_dir
 
     paths = MODELS[name]
 
