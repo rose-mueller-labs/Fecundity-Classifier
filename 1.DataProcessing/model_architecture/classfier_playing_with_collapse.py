@@ -11,8 +11,12 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
 CHANNELS = 3  
+#Regular
 BATCH_SIZE = 32
 EPOCHS = 50
+#Neural Colapse Testing
+BATCH_SIZE = 32
+EPOCHS = 5000
 MAX_EGGS = 42
 N_BINS = 10
 
@@ -40,17 +44,20 @@ def create_weighted_mse(class_weight_dict):
         return tf.reduce_mean(class_weights * tf.square(y_true - y_pred))
     return weighted_mse
 
-# load
+# load 
 BASE_D="/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/1.DataProcessing/DATASETS"
 data_dirs = { # testing = ~16-20 hrs (1 day)
-    f"{BASE_D}/4-30_5-1_5-2O_CC_A": "alex",
-    f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J": "jalex",
-    f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J_CD": "jalex",
-    f"{BASE_D}/4-30_5-1_CC_A": "alex",
-    f"{BASE_D}/4-30_5-1_CC_A_CC_J": "jalex",
-    f"{BASE_D}/4-30_CD_5-1_CC_A": "alex",
-    f"{BASE_D}/5-1_5-2S_CC_A": "alex",
-    f"{BASE_D}/GS_4-30_5-1_5-2O_CC_A": "alex" # rename after model is created
+    # f"{BASE_D}/4-30_5-1_5-2O_CC_A": "alex",
+    # f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J": "jalex",
+    # f"{BASE_D}/4-30_5-1_5-2S_CC_A_CC_J_CD": "jalex",
+    # f"{BASE_D}/4-30_5-1_CC_A": "alex",
+    # f"{BASE_D}/4-30_5-1_CC_A_CC_J": "jalex",
+    # f"{BASE_D}/4-30_CD_5-1_CC_A": "alex",
+    # f"{BASE_D}/5-1_5-2S_CC_A": "alex",
+    #f"{BASE_D}/5-1_5-2S": "alex",
+    #f"{BASE_D}/5-1_5-2S_No_Zero": "alex",
+    f"{BASE_D}/5-1_5-2S_Zero_Boolean": "alex",
+    # f"{BASE_D}/GS_4-30_5-1_5-2O_CC_A": "alex" # rename after model is created
 }
 for data_dir, person in data_dirs.items():
     # data_dir = input("Paste partioned data directory path here: ")
@@ -58,15 +65,16 @@ for data_dir, person in data_dirs.items():
     which_person = person
     iteration = 0 # int(input("Which iteration is this: "))
     model_name = f"{which_person}_{data_dir.split('/')[-1]}_v0.{iteration}.h5"
+    model_name = "Nueral_collapse_no_zero.h5"
     X, y = load_data(data_dir)
 
-    # normalize
+    # normalize 
     X = X.astype('float32') / 255.0
 
-    # split
+    # split 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
 
-    # create
+    # create 
     model = models.Sequential([
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, CHANNELS)),
         layers.MaxPooling2D((2, 2)),
@@ -78,7 +86,7 @@ for data_dir, person in data_dirs.items():
         layers.Dense(MAX_EGGS + 1, activation='softmax')  # +1 to include 0 eggs
     ])
 
-    # compile
+    # compile 
     model.compile(optimizer='adam',
                 loss='sparse_categorical_crossentropy',
                 metrics=['accuracy'])
@@ -92,12 +100,25 @@ for data_dir, person in data_dirs.items():
         vertical_flip=True
     )
 
-    # train
+    Neural_Collapse_No_Stopping = tf.keras.callbacks.EarlyStopping(
+        monitor='val_loss',
+        min_delta=0,
+        patience=0,
+        verbose=0,
+        mode='auto',
+        baseline=None,
+        restore_best_weights=False,
+        start_from_epoch=1000000
+        )
+
+    # train 
     history = model.fit(
         datagen.flow(X_train, y_train, batch_size=BATCH_SIZE),
         steps_per_epoch=len(X_train) // BATCH_SIZE,
         epochs=EPOCHS,
-        validation_data=(X_test, y_test)
+        validation_data=(X_test, y_test),
+        # For Neural Collapse
+        callbacks = [Neural_Collapse_No_Stopping]
     )
 
     y_pred_cls = np.argmax(model.predict(X_test), axis=1)
@@ -118,7 +139,7 @@ for data_dir, person in data_dirs.items():
         file.write(f"Overall MSE: {test_mse:.4f}\n")
         file.write(f"Overall MAE: {test_mae:.4f}\n")
         file.write(f"R² Score: {test_r2:.4f}\n\n")
-   
+    
         for bin_idx in range(1, len(bins)):
             mask = bin_indices == bin_idx
             if np.any(mask):

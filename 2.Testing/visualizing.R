@@ -8,6 +8,7 @@ setwd("~/Documents/Fecundity/Fecundity-Classifier/2.Testing")
 # x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_lithium_5-4_results/Alex_5-1_5-2S_v0.0_sums__lith54_CSV.csv")
 x <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_4-30_5-1_CC_A_v0.0_sums_COMPLETE_CD.csv")
 x2 <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_5-1_5-2S_CC_A_v0.0_sums_COMPLETE_CD.csv")
+x2 <- read.csv("/home/drosophila-lab/Documents/Fecundity/Fecundity-Classifier/2.Testing/model_testing_complete_CD_results/Alex_4-30_5-1_CC_A_v0.0_tile_counts_CD.csv")
 x$dif <- x$BotSum - x$HumanSum
 x$absDif <- abs(x$dif)
 x2$dif <- x2$BotSum - x2$HumanSum
@@ -244,6 +245,4 @@ c <- abs(twoModel$firstDif) < 80
 hist(twoModel$firstDif[c])
 hist(twoModel$secondDif[c])
 hist(twoModel$meanDif[c])
-
-ggpllo
 

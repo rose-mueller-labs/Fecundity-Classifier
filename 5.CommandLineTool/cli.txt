@@ -9,3 +9,12 @@ default model:
 2. For each circle, make directory to contain tiles
 3. Run predictions on each tile and put the circle and its egg count into a CSV
 4. Return CSV
+
+#Note: a thing we should do is make it so the tiles can be chosen to be saved for future use and a tile directory can be loaded instead
+#Note2: also needs to account for various common image formats or have it specified in CLI (better to detect)
+#Note3: be able to choose name for final file not just output dir or make name suitable generic
+#something akin to "individual tiles" "full picture count"
+#the sums don't work - assuming it is supposed to be for one full cap
+#this is because it is not idiot proofed and if someone is dumb it causes issues
+#the warnings do need to go if they truly don't matter, if this is to be a tool for even just this lab
+#and not outside the lab, imagine the telephone as fear
