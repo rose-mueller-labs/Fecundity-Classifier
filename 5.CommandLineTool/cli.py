@@ -12,6 +12,7 @@ from image_shredder import main as shred
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+tf.get_logger().setLevel('ERROR') 
 
 # constants
 IMG_HEIGHT, IMG_WIDTH = 75, 75
