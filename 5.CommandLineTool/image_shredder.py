@@ -9,6 +9,8 @@ import sys
 def split_image(outpath, imgpath, imgid):
     img = cv.imread(imgpath, 1)
     height, width, _ = img.shape
+    if height < 80:
+        raise ValueError
     index = 1
     print(f"SPLITTING {imgid}")
     imgname = imgid
@@ -35,6 +37,8 @@ def main(path): # changed argv into path
     #     path += sys.argv[i] + " "
     # path = argv[0:len(argv)-1]
     for x in os.listdir(path): 
+        if x.startswith('._'):
+            continue
         imgpath = f'{path}/{x}'
         print(imgpath)
         if  x.endswith(".jpg") or x.endswith(".png") or x.endswith(".JPG"):

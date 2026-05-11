@@ -1,3 +1,5 @@
+# image_shredder.py
+
 import numpy as np
 import cv2 as cv
 import math

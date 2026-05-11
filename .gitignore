@@ -10,3 +10,4 @@ DATA
 __pycache__
 *.RData
 *.Rhistory
+__pycache__
