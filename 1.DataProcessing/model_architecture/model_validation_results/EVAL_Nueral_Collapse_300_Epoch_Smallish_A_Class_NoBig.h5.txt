@@ -1,0 +1,12 @@
+test accuracy: 0.7223140597343445
+
+test loss: 0.7725975513458252
+
+Overall MSE: 0.4347
+Overall MAE: 0.3256
+R² Score: 0.6225
+
+Bin 0-1 MSE: 0.5971
+Bin 1-2 MSE: 0.1915
+Bin 2-3 MSE: 0.4869
+Bin 3-4 MSE: 0.4478
